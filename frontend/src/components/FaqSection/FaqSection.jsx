@@ -18,8 +18,7 @@ const faqItems = [
   {
     id: 'collapseThree',
     question: 'É preciso pagar alguma taxa para a adoção?',
-    answer:
-      'Não! A adoção de pets em nosso sistema é totalmente gratuita. No entanto, algumas ONGs parceiras podem solicitar uma taxa simbólica para cobrir custos veterinários básicos (como vacinas e vermífugos), o que será claramente informado.',
+    answer: 'Não! A adoção de pets em nosso sistema é totalmente gratuita.',
   },
   {
     id: 'collapseFour',
@@ -31,13 +30,13 @@ const faqItems = [
     id: 'collapseFive',
     question: 'Esses pets já são vacinados e castrados?',
     answer:
-      'Priorizamos a saúde animal. A grande maioria dos pets adultos está castrada e com o protocolo de vacinas em dia. Essa informação é sempre detalhada e garantida na ficha individual de cada animal disponível para adoção.',
+      'Priorizamos a saúde animal. A grande maioria dos pets adultos estão castrados e com o protocolo de vacinas em dia. Essa informação é sempre detalhada e garantida na ficha individual de cada animal disponível para adoção.',
   },
   {
     id: 'collapseSix',
     question: 'Posso devolver o pet se não me adaptar?',
     answer:
-      'Entendemos que a adaptação leva tempo, mas a adoção é um ato de compromisso. Caso haja problemas graves e inevitáveis, pedimos que entre em contato imediatamente com a nossa ONG para encontrarmos uma solução e, se necessário, o pet será reencaminhado, **nunca abandonado**.',
+      'Entendemos que a adaptação leva tempo, mas a adoção é um ato de compromisso. Caso haja problemas graves e inevitáveis, pedimos que entre em contato imediatamente com a nossa ONG para encontrarmos uma solução e, se necessário, o pet será reencaminhado, nunca abandonado.',
   },
 ]
 
