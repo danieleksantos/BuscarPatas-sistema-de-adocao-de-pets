@@ -64,7 +64,7 @@ function InstrutorCard({ nome, area, fotoUrl, depoimento }) {
             />
           </div>
           <Card.Body className="d-flex flex-column">
-            <Card.Title className="text-info fw-bolder fs-4">{nome}</Card.Title>
+            <Card.Title className="cor-laranja fw-bolder fs-4">{nome}</Card.Title>
             <Card.Subtitle className="mb-3 text-muted fw-bold">
               {area}
             </Card.Subtitle>
@@ -113,7 +113,7 @@ export function AgradecimentoInstrutores() {
             <Row className="text-center mb-4">
               <Col>
                 <h2 className="text-warning display-6 fw-bold">
-                  Nossos Facilitadores (Instrutores)
+                  Nossos Facilitadores (Mentores)
                 </h2>
               </Col>
             </Row>
@@ -132,9 +132,7 @@ export function AgradecimentoInstrutores() {
 
             <Row className="text-center my-5">
               <Col>
-                <h2 className="text-warning display-6 fw-bold">
-                  Integrantes da Squad 2
-                </h2>
+                <h2 className="text-warning display-6 fw-bold">Squad 2</h2>
               </Col>
             </Row>
 
@@ -152,8 +150,7 @@ export function AgradecimentoInstrutores() {
             <Row className="text-center mb-0 mb-md-4 mt-5">
               <Col>
                 <p className="text-white fw-bold fs-5">
-                  Agora, é hora de codificar o futuro. Missão dada é missão
-                  codificada! 🚀
+                  Missão dada é missão codificada! 🚀
                 </p>
               </Col>
             </Row>
