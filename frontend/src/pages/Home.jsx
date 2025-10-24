@@ -7,13 +7,15 @@ import { PetList } from '../components/PetList/PetList'
 import { Footer } from '../components/Footer/Footer'
 import { PaginationControls } from '../components/PaginationControls/PaginationControls'
 import { PetDetailModal } from '../components/PetDetailModal/PetDetailModal'
+import AnimatedBackground from '../components/AnimatedBackground/AnimatedBackground'
 
 export function Home() {
   const [pets, setPets] = useState([])
   const [pagination, setPagination] = useState(null)
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({
-    page: 1, limit: 8,
+    page: 1,
+    limit: 8,
   })
   const [showModal, setShowModal] = useState(false)
   const [selectedPet, setSelectedPet] = useState(null)
@@ -23,28 +25,29 @@ export function Home() {
     async function fetchPets() {
       setLoading(true)
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-      const activeFilters = { status: 'DISPONIVEL' };
-      Object.keys(filters).forEach(key => {
+      const activeFilters = { status: 'DISPONIVEL' }
+      Object.keys(filters).forEach((key) => {
         if (filters[key]) {
-          activeFilters[key] = filters[key];
+          activeFilters[key] = filters[key]
         }
-      });
-      activeFilters.page = filters.page || 1;
-      activeFilters.limit = filters.limit || 8;
+      })
+      activeFilters.page = filters.page || 1
+      activeFilters.limit = filters.limit || 8
 
       const queryParams = new URLSearchParams(activeFilters).toString()
       const url = `${API_URL}/pets?${queryParams}`
 
       try {
         const response = await fetch(url)
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok)
+          throw new Error(`HTTP error! status: ${response.status}`)
         const data = await response.json()
         setPets(data.data || [])
         setPagination(data.pagination || null)
       } catch (error) {
         console.error('Falha ao buscar pets:', error)
         setPets([])
-        setPagination(null);
+        setPagination(null)
       } finally {
         setLoading(false)
       }
@@ -81,7 +84,7 @@ export function Home() {
   const homeBackgroundImageUrl = '/patinhas.png'
 
   return (
-    <main>
+    <main style={{ position: 'relative' }}>
       <CtaBanner
         imageUrl="/gato-e-cachorro.jpg"
         imageAlt="Cachorro e Gato"
@@ -89,13 +92,21 @@ export function Home() {
         buttonText="Encontre seu Pet"
         buttonHref="#busca"
         onClick={(e) => {
-            e.preventDefault();
-            buscaSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+          e.preventDefault()
+          buscaSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
         }}
       />
 
-      <Container as="section" id="busca" className="py-5 my-4" ref={buscaSectionRef}>
-        <h2 className="text-center mb-4 display-5 fw-light"> Encontre seu novo amigo </h2>
+      <Container
+        as="section"
+        id="busca"
+        className="py-5 my-4"
+        ref={buscaSectionRef}
+      >
+        <h2 className="text-center mb-4 display-5 fw-light">
+          {' '}
+          Encontre seu novo amigo{' '}
+        </h2>
 
         {/* Topo da página */}
         <div className="mb-3">
@@ -107,15 +118,23 @@ export function Home() {
         </div>
 
         {/* Filtros */}
-        <PetFilters onFilterChange={handleFilterChange} className="mb-3"/>
+        <PetFilters onFilterChange={handleFilterChange} className="mb-3" />
 
         {/* Lista de Pets */}
-        {loading && <div className="text-center mt-4"><Spinner animation="border" /></div>}
-        {!loading && pets.length === 0 && <Alert variant="info" className="mt-4">Nenhum pet encontrado com esses filtros.</Alert>}
+        {loading && (
+          <div className="text-center mt-4">
+            <Spinner animation="border" />
+          </div>
+        )}
+        {!loading && pets.length === 0 && (
+          <Alert variant="info" className="mt-4">
+            Nenhum pet encontrado com esses filtros.
+          </Alert>
+        )}
         {!loading && pets.length > 0 && (
-            <div className="mt-0">
-               <PetList pets={pets} onPetClick={handleShowModal} />
-            </div>
+          <div className="mt-0">
+            <PetList pets={pets} onPetClick={handleShowModal} />
+          </div>
         )}
 
         {/* Paginação Base */}
@@ -148,6 +167,13 @@ export function Home() {
           onAdocaoConcluida={handleAdocaoConcluida}
         />
       )}
+      <AnimatedBackground
+        imageUrl={homeBackgroundImageUrl}
+        opacity={0.4}
+        isLocalElement={true}
+        isCornerImage={true}
+        backgroundSize="200px"
+      />
     </main>
   )
 }

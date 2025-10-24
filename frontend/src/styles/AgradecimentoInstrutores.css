@@ -1,0 +1,83 @@
+:root {
+    --avanti-primary: #007bff; 
+    --avanti-secondary: #ffc107; 
+    --avanti-shadow: rgba(138, 43, 226, 0.4); 
+    --avanti-purple-dark: rgba(50, 0, 80, 0.55); 
+}
+
+.agradecimento-background {
+    background-image: url('/bg-demoday.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center; 
+    min-height: 100vh;
+    width: 100%;
+    position: relative; 
+}
+
+.agradecimento-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--avanti-purple-dark); 
+    z-index: 0; 
+}
+
+.agradecimento-content {
+    position: relative;
+    z-index: 1;
+}
+
+
+.instrutor-card-link-wrapper {
+    cursor: pointer; 
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.instrutor-card-link-wrapper:hover {
+    box-shadow: 0 15px 30px var(--avanti-shadow) !important; 
+    transform: translateY(-5px); 
+}
+
+.instrutor-card {
+    border-radius: 1rem !important;
+    overflow: hidden;
+    transition: none;
+    box-shadow: none !important;
+}
+
+
+.instrutor-foto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--avanti-primary); 
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 10px var(--avanti-shadow);
+}
+
+.instrutor-card-link-wrapper:hover .instrutor-foto {
+    transform: scale(1.05);
+}
+
+.card-header-custom {
+    background: transparent;
+    border-bottom: none;
+}
+
+.blockquote {
+    border-color: var(--avanti-primary) !important;
+}
+
+.depoimento-texto {
+    color: #495057; 
+}
+
+.blockquote-footer {
+    color: #6c757d; 
+}
+
