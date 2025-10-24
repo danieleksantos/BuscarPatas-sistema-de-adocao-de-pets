@@ -5,7 +5,6 @@ import {
   faPaw,
   faShieldAlt,
   faUsers,
-  faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons'
 import { CtaBanner } from '../components/CtaBanner/CtaBanner'
 import { HashLink } from 'react-router-hash-link'
@@ -60,7 +59,6 @@ export function Sobre() {
           </p>
         </div>
 
-        {/* ... (Seção Nossa História) ... */}
         <section
           className="container pb-5"
           style={{
@@ -123,7 +121,6 @@ export function Sobre() {
             </div>
           </div>
         </section>
-        {/* ... (Fim Seção Nossa História) ... */}
 
         <CtaBanner
           imageUrl="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870"
@@ -163,12 +160,11 @@ export function Sobre() {
           </div>
         </section>
 
-        {/* --- NOVO: BOTÃO DE HOMENAGEM AO BOOTCAMP --- */}
         <section className="container text-center my-5 pt-4">
           <h3 className="mb-4">Junte-se a nós nessa missão!</h3>
           <HashLink
             to="/#busca"
-            className="btn btn-principal fw-bold me-3" // Adicionei 'me-3' (margin-end) para dar espaço
+            className="btn btn-principal fw-bold me-3"
             scroll={(el) => {
               setTimeout(() => {
                 el.scrollIntoView({ behavior: 'smooth' })
@@ -178,9 +174,9 @@ export function Sobre() {
             Ver Pets para Adoção
           </HashLink>
 
-          <Link to="/agradecimento" className="btn btn-outline-primary fw-bold">
-            <FontAwesomeIcon icon={faGraduationCap} className="me-2" />
-            Conheça nossos Mentores
+          <Link to="/agradecimento" className="btn btn-principal fw-bold">
+            <FontAwesomeIcon icon={faUsers} className="me-2" />
+            Nossa Equipe
           </Link>
         </section>
       </main>
