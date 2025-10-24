@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken';
 import { register, login } from '../controllers/authController.js';
 
 const router = Router();
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+const FRONTEND_URL = process.env.FRONTEND_URL || process.env.CLIENT_URL || 'http://localhost:5173';
 
 router.post('/register', register);
 router.post('/login', login);
@@ -29,11 +30,10 @@ router.get('/google/callback',
 
     const token = jwt.sign(
       { id: req.user.auth_id, role: req.user.role },
-      jwtSecret, 
+      jwtSecret,
       { expiresIn: '8h' }
     );
-    
-    // Redireciona para o frontend com o token
+
     res.redirect(`${FRONTEND_URL}/auth/callback?token=${token}`);
   }
 );
