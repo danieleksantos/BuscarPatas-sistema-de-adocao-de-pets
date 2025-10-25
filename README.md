@@ -47,7 +47,6 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento d
 
 -   Node.js (versão 18.18 ou superior)
 -   NPM
--   PostgreSQL instalado e rodando na sua máquina.
 
 ### Instalação e Configuração
 
@@ -67,13 +66,34 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento d
 
     *Exemplo de `.env`:*
     ```env
-    DATABASE_URL="postgresql://SEU_USER:SUA_SENHA@localhost:5432/buscar_patas_db?schema=public"
+    "DATABASE_URL="postgresql://buscar_patas_postgree_user:RPlf6iXzKqtxuZXslO7DXG26MObWWY82@dpg-d3sutjq4d50c73emdk1g-a.oregon-postgres.render.com/buscar_patas_postgree""
     JWT_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    CLOUDINARY_CLOUD_NAME="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    CLOUDINARY_API_KEY="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    CLOUDINARY_API_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+
+    GOOGLE_CLIENT_ID="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    GOOGLE_CLIENT_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    FRONTEND_URL="https://buscar-patas-sistema-de-adocao-de-p.vercel.app/"
+
+    CORS_ORIGINS="http://localhost:5173,https://buscar-patas-sistema-de-adocao-de-pets-lbt1r2xw7.vercel.app,https://buscar-patas-sist*.vercel.app"
     ```
 
 4.  **Instale as dependências:**
     ```bash
     npm install
+    ```
+    
+5.  **Navegue até a pasta do frontend**
+    ```bash
+    cd frontend
+    ```
+6.  **Crie o arquivo de ambiente:**
+    Crie um arquivo chamado `.env` na pasta `frontend` e adicione a string de conexão.
+
+    *Seu `.env`:*
+    ```env
+    VITE_API_URL="https://buscarpatas-sistema-de-adocao-de-pets.onrender.com"
     ```
 
 ### ▶️ Executando a Aplicação
@@ -85,11 +105,11 @@ npm run dev
 🌐 Deploy da Aplicação
 O projeto está hospedado nas seguintes plataformas:
 
-Backend: Render (Para o servidor Node.js/Express)
-[Backend](https://dashboard.render.com/web/srv-d3sv62ngi27c73dvjosg)
+**Backend** - [Render](https://dashboard.render.com/web/srv-d3sv62ngi27c73dvjosg)
+**Frontend** - [Vercel](https://buscar-patas-sistema-de-adocao-de-p.vercel.app/)
 
 Frontend: Vercel (Para a aplicação ReactJS)
-[Frontend] (https://buscar-patas-sistema-de-adocao-de-p.vercel.app/)
+[Frontend] ()
 
 
 ## 📚 Documentação da API
