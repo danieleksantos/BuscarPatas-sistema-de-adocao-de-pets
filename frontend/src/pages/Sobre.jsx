@@ -174,7 +174,7 @@ export function Sobre() {
             Ver Pets para Adoção
           </HashLink>
 
-          <Link to="/agradecimento" className="btn btn-principal fw-bold">
+          <Link to="/agradecimento" className="btn btn-principal fw-bold m-2">
             <FontAwesomeIcon icon={faUsers} className="me-2" />
             Nossa Equipe
           </Link>

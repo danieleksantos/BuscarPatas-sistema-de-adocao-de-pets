@@ -113,7 +113,7 @@ export function AgradecimentoInstrutores() {
             <Row className="text-center mb-4">
               <Col>
                 <h2 className="text-warning display-6 fw-bold">
-                  Nossos Facilitadores (Mentores)
+                  Nossos Facilitadores e Mentores
                 </h2>
               </Col>
             </Row>
