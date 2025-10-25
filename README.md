@@ -1,19 +1,29 @@
 # 🐾 Buscar Patas - Sistema de Adoção de Pets
 
-Bem-vindo ao Buscar Patas, uma aplicação web completa para gerenciamento de abrigos de animais. Este projeto foi desenvolvido como parte do curso **Desenvolvimento Full Stack Básico (DFS-2025.3)**.
+Bem-vindo ao Buscar Patas, uma aplicação web completa para gerenciamento de abrigos de animais. Este projeto foi desenvolvido como parte do Bootcamp **Desenvolvimento Full Stack 2025.3**.
 
-O objetivo principal é modernizar o processo de adoção, substituindo controles manuais por um sistema eficiente que facilita o cadastro de pets e a conexão entre eles e seus futuros lares.
+O objetivo principal foi modernizar o processo de adoção, substituindo controles manuais por um sistema eficiente que facilita o cadastro de pets e a conexão entre eles e seus futuros lares.
 
 ## ✨ Funcionalidades Principais
 
--   **🐕 Gestão de Pets:** CRUD completo para cadastrar, visualizar, atualizar e deletar pets.
--   **👥 Gestão de Adotantes:** CRUD para gerenciar os dados de potenciais adotantes.
--   **🤝 Processo de Adoção:** Sistema para registrar adoções, atualizando automaticamente o status dos pets.
--   **🔍 Filtragem Avançada:** Busque pets por espécie, status, tamanho e personalidade.
--   **📊 Autenticação e Segurança:** Sistema de autenticação baseado em JWT com papéis (roles) de `USER` e `ADMIN` para proteger rotas sensíveis.
+O sistema é segmentado para atender às necessidades dos diferentes tipos de usuários: Adotantes e Administradores.
 
+### 👥 Funcionalidades para Adotantes (Role: `USER`)
+
+-   **👤 Autenticação Segura:** Cadastro de novo usuário e Login com email/senha. *+ Opção de Login Social (Gmail).*
+-   **🔍 Busca e Filtragem:** Buscar pets disponíveis por espécie, tamanho, personalidade.
+-   **💖 Processo de Adoção:** Iniciar o processo de adoção de um pet diretamente pela plataforma.
+-   **📈 Painel do Adotante:** Visualizar o histórico e o status das adoções realizadas.
+
+### ⚙️ Funcionalidades para Administradores (Role: `ADMIN`)
+
+-   **🐕 Gestão de Pets (CRUD):** Cadastrar, visualizar, atualizar e deletar pets.
+-   **🤝 Gestão de Adotantes (CRUD):** Gerenciar os dados de cadastro de adotantes.
+-   **📜 Gestão de Adoções (CRUD):** Registrar, atualizar e deletar registros de adoção.
+-   **📊 Dashboard de Gestão:** Painel com indicadores chave para contabilização de cadastros, pets disponíveis, adoções realizadas e pets aguardando adoção.
+-   **🔒 Segurança:** Sistema de autenticação baseado em JWT para proteger rotas sensíveis e administrativas.
+  
 ## 🛠️ Tecnologias Utilizadas
-
 Este projeto foi construído com as seguintes tecnologias:
 
 -   **Backend:**
@@ -43,7 +53,7 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento d
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/danieleksantos/BuscarPatas-sistema-de-adocao-de-pets.git
+    git clone [https://github.com/danieleksantos/BuscarPatas-sistema-de-adocao-de-pets.git](https://github.com/danieleksantos/BuscarPatas-sistema-de-adocao-de-pets.git)
     cd BuscarPatas-sistema-de-adocao-de-pets
     ```
 
@@ -54,7 +64,7 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento d
 
 3.  **Crie o arquivo de ambiente:**
     Crie um arquivo chamado `.env` na pasta `backend` e adicione a sua string de conexão com o banco de dados.
-    
+
     *Exemplo de `.env`:*
     ```env
     DATABASE_URL="postgresql://SEU_USER:SUA_SENHA@localhost:5432/buscar_patas_db?schema=public"
@@ -66,54 +76,21 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento d
     npm install
     ```
 
-5.  **Aplique as migrações do banco de dados:**
-    Este comando irá criar todas as tabelas necessárias no seu banco de dados.
-    ```bash
-    npx prisma migrate dev
-    ```
-
 ### ▶️ Executando a Aplicação
 
-Para iniciar o servidor em modo de desenvolvimento (com reinício automático), use:
+Para iniciar o servidor em modo de desenvolvimento (com reinício automático), use na pasta raiz:
 ```bash
-npm start
-```
-O servidor estará disponível em `http://localhost:3000`
+npm run dev
 
-## 🏗️ Arquitetura do Projeto
+🌐 Deploy da Aplicação
+O projeto está hospedado nas seguintes plataformas:
 
-```
-BuscarPatas-sistema-de-adocao-de-pets/
-│
-├── backend/
-│   │   .env               # Variáveis de ambiente (senhas, chaves de API, etc.)
-│   │   .gitignore         # Arquivos e pastas ignorados pelo Git
-│   │   package.json       # Dependências e scripts do projeto backend
-│   │
-│   ├── prisma/
-│   │   │   schema.prisma    # Definição do esquema do banco de dados (tabelas e colunas)
-│   │
-│   └── src/
-│       │   app.js             # Configuração principal do Express 
-│       │   server.js          # Arquivo que inicia o servidor
-│       │
-│       ├── controllers/
-│       │   │   adocaoController.js
-│       │   │   adotanteController.js
-│       │   │   petController.js
-│       │
-│       └── routes/
-│           │   adocaoRoutes.js
-│           │   adotanteRoutes.js
-│           │   petRoutes.js
-│
-├── frontend/
-│   └── assets/
-│       │   DER.png            # Diagrama Entidade-Relacionamento
-│       │   logo.png           # Logo do projeto
-│
-└── README.md                  # Documentação principal do projeto
-```
+Backend: Render (Para o servidor Node.js/Express)
+[Backend](https://dashboard.render.com/web/srv-d3sv62ngi27c73dvjosg)
+
+Frontend: Vercel (Para a aplicação ReactJS)
+[Frontend] (https://buscar-patas-sistema-de-adocao-de-p.vercel.app/)
+
 
 ## 📚 Documentação da API
 
@@ -147,51 +124,31 @@ Abaixo está o Diagrama de Entidade-Relacionamento que representa a estrutura do
 
 ![Diagrama de Entidade-Relacionamento](./frontend/assets/DER.png)
 
-## 👨‍💻 Autores
 
-**Alicia Estefany** - [user-git](https://github.com/user-git)
+💡 Próximas Melhorias (Roadmap)
+Temos um conjunto de melhorias planejadas para aprimorar a experiência do usuário e a funcionalidade do sistema:
+
+- Integração de Localização: Implementar integração com API de CEP para autocompletar endereços no cadastro do adotante, incluindo um checkbox para quando o CEP não for localizado.
+
+- Atributo de Sexo do Pet: Adicionar o atributo "Sexo" (Macho/Fêmea) ao modelo de dados do Pet e nos formulários.
+
+- Upload de Múltiplas Fotos: Permitir o upload de até 2 fotos por pet para melhor visualização.
+
+Experiência do Usuário:
+
+- Personalizar a saudação após o login: "Bem-vindo(a), Fulano".
+
+- Adicionar um formulário de contato/feedback: "Ainda com dúvidas?".
+
+- Comunicação do Processo de Adoção: Implementar o envio de E-mail de feedback e orientações após a conclusão ou atualização do processo de adoção.
+
+
+## 👨‍💻 Equipe Squad 2
+
 
 **Daniele Santos** - [danieleksantos](https://github.com/danieleksantos)
 
-**Edilton Junior** - [ediltonx](https://github.com/ediltonx)
-
 **Eduardo Schuindt** - [edudsan](https://github.com/edudsan)
 
-**J. Garreto** - [user-git](https://github.com/user-git)
-
-**Vivian Maria** - [user-git](https://github.com/user-git)
-
+**Patrick Santos** - [Manopk07](https://github.com/Manopk07)
 ---
-
-⭐ Se este projeto te ajudou, considere dar uma estrela no repositório!
-
-🐾 **Ajude um pet a encontrar um lar!**
-
-## 📅 Cronograma e Entregas do Projeto
-
-Esta seção documenta o progresso das entregas das principais frentes de desenvolvimento do sistema BuscarPatas.
-
-### ✅ Entrega 1: Backend
-**Prazo Final:** 05/10/2025
-
-| Funcionalidade / Tarefa | Responsável | Status |
-| :---------------------- | :---------- | :------- |
-|Elaboração do plano de construção|Daniele|✅|
-|Gerenciamento de membros e atividades|Daniele|✅|
-|Execução de testes e correções de BUGs|Daniele|✅|
-| Definição do Schema do Banco de Dados (`schema.prisma`) | Eduardo e Daniele | ✅ |
-| Criação do Modelo de Dados `Pet` | Eduardo | ✅ |
-| Criação do Modelo de Dados `Adotante` | Eduardo | ✅ |
-| Criação do Modelo de Dados `Adocao` para registrar o histórico | Eduardo | ✅ |
-| Implementação dos `enums` para Status, Tamanho e Personalidade | Eduardo e Daniele | ✅ |
-| Estruturação das rotas da API (Pets, Adotantes, Adoção, Auth) | Eduardo | ✅ |
-|Elaboração do README|Edilton|✅|
-
-<br>
-
-### ⏳ Entrega 2: Frontend
-**Prazo Final:** 25/10/2025
-
-| Funcionalidade / Tarefa | Responsável | Status |
-| :---------------------- | :---------- | :------- |
-|A definir|A definir|A definir|
