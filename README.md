@@ -66,7 +66,7 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
     *Exemplo de `.env`:*
     ```env
-    "DATABASE_URL="postgresql://buscar_patas_postgree_user:RPlf6iXzKqtxuZXslO7DXG26MObWWY82@dpg-d3sutjq4d50c73emdk1g-a.oregon-postgres.render.com/buscar_patas_postgree""
+    "DATABASE_URL=""
     JWT_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
     CLOUDINARY_CLOUD_NAME="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
     CLOUDINARY_API_KEY="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
