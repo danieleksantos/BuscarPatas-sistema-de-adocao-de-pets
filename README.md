@@ -101,6 +101,7 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento d
 Para iniciar o servidor em modo de desenvolvimento (com reinício automático), use na pasta raiz:
 ```bash
 npm run dev
+```
 
 ## 🌐 Deploy da Aplicação
 
