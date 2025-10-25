@@ -6,7 +6,6 @@ import { PaginationControls } from '../PaginationControls/PaginationControls'
 import { PetDetailModal } from '../PetDetailModal/PetDetailModal'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export function DashboardMinhasAdocoes() {
@@ -34,7 +33,6 @@ export function DashboardBuscarPets() {
 
       // String de query com os filtros ativos
       const queryParams = new URLSearchParams(filters).toString()
-      // CORREÇÃO: Usando API_URL para a rota de busca
       const url = `${API_URL}/pets?${queryParams}`
 
       try {

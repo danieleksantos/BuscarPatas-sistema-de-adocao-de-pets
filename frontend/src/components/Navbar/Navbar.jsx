@@ -12,7 +12,6 @@ import { jwtDecode } from 'jwt-decode'
 import Swal from 'sweetalert2'
 import './Navbar.css'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export function Navbar() {
@@ -30,7 +29,6 @@ export function Navbar() {
         // Fetch user profile to get the name
         const fetchUserProfile = async () => {
           try {
-            // CORREÇÃO: Usando API_URL para a rota /profile
             const response = await fetch(`${API_URL}/profile`, {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -96,7 +94,7 @@ export function Navbar() {
     >
       <BSNavbar.Brand as={Link} to="/" className="d-flex align-items-center">
         <img
-          src={'/logo.png'} // Caminho correto se 'logo.png' estiver na pasta public
+          src={'/logo.png'}
           width="40"
           height="40"
           className="d-inline-block align-top me-2"

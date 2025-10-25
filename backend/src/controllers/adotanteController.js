@@ -42,7 +42,7 @@ export const getAdotantesSemAdocao = async (req, res) => {
           none: {},
         },
       },
-      include: { // Também inclui dados de Auth aqui
+      include: { 
         auth: {
           select: { email: true, role: true }
         }

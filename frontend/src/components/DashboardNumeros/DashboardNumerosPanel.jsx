@@ -3,7 +3,6 @@ import { Alert, Spinner } from 'react-bootstrap'
 import { NumerosCard } from '../NumerosCard/NumerosCard'
 import { useAuth } from '../../contexts/AuthContext'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 const IMAGE_ADOTANTES =
@@ -40,7 +39,6 @@ export function DashboardNumerosPanel() {
       setError(null)
 
       try {
-        // CORREÇÃO: Usando API_URL para a rota /dashboard/counts
         const response = await fetch(`${API_URL}/dashboard/counts`, {
           method: 'GET',
           headers: {
@@ -58,7 +56,7 @@ export function DashboardNumerosPanel() {
 
         const data = await response.json()
 
-        // 4. Cálculo e Atualização do Estado
+        //  Cálculo e Atualização do Estado
         const petsAguardando = (data.totalPets || 0) - (data.petsAdotados || 0)
 
         setCounts({
@@ -77,9 +75,7 @@ export function DashboardNumerosPanel() {
     }
 
     fetchCounts()
-  }, [token, user]) // Refaz a busca se o token/usuário mudar
-
-  // --- Renderização de UI ---
+  }, [token, user])
 
   if (loading) {
     return (

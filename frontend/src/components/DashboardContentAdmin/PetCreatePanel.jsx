@@ -7,8 +7,12 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export function PetCreatePanel({ onSuccess, onCancel }) {
   const [formData, setFormData] = useState({
-    nome: '', especie: '', data_nascimento: '', descricao: '',
-    tamanho: 'PEQUENO', personalidade: 'CALMO',
+    nome: '',
+    especie: '',
+    data_nascimento: '',
+    descricao: '',
+    tamanho: 'PEQUENO',
+    personalidade: 'CALMO',
   })
   const [imageFile, setImageFile] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -20,9 +24,9 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-        setImageFile(e.target.files[0])
+      setImageFile(e.target.files[0])
     } else {
-        setImageFile(null);
+      setImageFile(null)
     }
   }
 
@@ -33,13 +37,18 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
 
     const data = new FormData()
 
-    Object.keys(formData).forEach(key => {
-      if (formData[key] || key === 'tamanho' || key === 'personalidade' || key === 'data_nascimento') {
-        data.append(key, formData[key]);
+    Object.keys(formData).forEach((key) => {
+      if (
+        formData[key] ||
+        key === 'tamanho' ||
+        key === 'personalidade' ||
+        key === 'data_nascimento'
+      ) {
+        data.append(key, formData[key])
       }
-    });
+    })
     if (imageFile) {
-       data.append('image', imageFile)
+      data.append('image', imageFile)
     }
 
     try {
@@ -55,7 +64,7 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
       }
 
       Swal.fire('Sucesso!', 'Pet cadastrado!', 'success').then(() => {
-        onSuccess(); 
+        onSuccess()
       })
     } catch (error) {
       Swal.fire('Erro!', error.message, 'error')
@@ -73,8 +82,11 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             <Form.Group className="mb-3">
               <Form.Label>Nome do Pet*</Form.Label>
               <Form.Control
-                type="text" name="nome" value={formData.nome}
-                onChange={handleChange} required
+                type="text"
+                name="nome"
+                value={formData.nome}
+                onChange={handleChange}
+                required
               />
             </Form.Group>
           </Col>
@@ -82,8 +94,11 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             <Form.Group className="mb-3">
               <Form.Label>Espécie*</Form.Label>
               <Form.Control
-                type="text" name="especie" value={formData.especie}
-                onChange={handleChange} required
+                type="text"
+                name="especie"
+                value={formData.especie}
+                onChange={handleChange}
+                required
               />
             </Form.Group>
           </Col>
@@ -91,7 +106,10 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
         <Form.Group className="mb-3">
           <Form.Label>Descrição</Form.Label>
           <Form.Control
-            as="textarea" rows={3} name="descricao" value={formData.descricao}
+            as="textarea"
+            rows={3}
+            name="descricao"
+            value={formData.descricao}
             onChange={handleChange}
           />
         </Form.Group>
@@ -100,7 +118,9 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             <Form.Group className="mb-3">
               <Form.Label>Data Nasc. (Aprox.)</Form.Label>
               <Form.Control
-                type="date" name="data_nascimento" value={formData.data_nascimento}
+                type="date"
+                name="data_nascimento"
+                value={formData.data_nascimento}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -109,7 +129,8 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             <Form.Group className="mb-3">
               <Form.Label>Tamanho</Form.Label>
               <Form.Select
-                name="tamanho" value={formData.tamanho}
+                name="tamanho"
+                value={formData.tamanho}
                 onChange={handleChange}
               >
                 <option value="PEQUENO">Pequeno</option>
@@ -122,7 +143,8 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             <Form.Group className="mb-3">
               <Form.Label>Personalidade</Form.Label>
               <Form.Select
-                name="personalidade" value={formData.personalidade}
+                name="personalidade"
+                value={formData.personalidade}
                 onChange={handleChange}
               >
                 <option value="CALMO">Calmo</option>
@@ -135,18 +157,20 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
         <Form.Group className="mb-3">
           <Form.Label>Imagem Principal (Opcional)</Form.Label>
           <Form.Control
-            type="file" name="image" accept="image/*"
+            type="file"
+            name="image"
+            accept="image/*"
             onChange={handleFileChange}
           />
         </Form.Group>
-         {/* Botões de Ação */}
+        {/* Botões de Ação */}
         <div className="d-flex justify-content-end mt-3">
-           <Button variant="secondary" onClick={onCancel} className="me-2">
-             Cancelar
-           </Button>
-           <Button type="submit" className="btn-principal" disabled={loading}>
-             {loading ? <Spinner size="sm" /> : 'Cadastrar Pet'}
-           </Button>
+          <Button variant="secondary" onClick={onCancel} className="me-2">
+            Cancelar
+          </Button>
+          <Button type="submit" className="btn-principal" disabled={loading}>
+            {loading ? <Spinner size="sm" /> : 'Cadastrar Pet'}
+          </Button>
         </div>
       </Form>
     </>

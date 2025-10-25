@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useAuth } from '../../contexts/AuthContext'
 import { capitalizeFirstLetter } from '../../utils/formatters'
-import logoBuscarPatas from '../../assets/logo.png';
+import logoBuscarPatas from '../../assets/logo.png'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 const calcularIdade = (dataNascimento) => {
@@ -24,13 +23,11 @@ const calcularIdade = (dataNascimento) => {
   return [idadeAnos, idadeMeses].filter(Boolean).join(' e ')
 }
 
-
 export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
   if (!pet) return null
 
   const { isAuthenticated, user, token } = useAuth()
   const navigate = useNavigate()
-
 
   const handleAdotarClick = async () => {
     if (!isAuthenticated) {
@@ -63,7 +60,6 @@ export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          // CORREÇÃO: Usando API_URL para a rota /adocoes
           const response = await fetch(`${API_URL}/adocoes`, {
             method: 'POST',
             headers: {
@@ -76,7 +72,9 @@ export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
           })
 
           if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ error: 'Erro ao processar resposta do servidor.' }))
+            const errorData = await response.json().catch(() => ({
+              error: 'Erro ao processar resposta do servidor.',
+            }))
             throw new Error(
               errorData.error || 'Não foi possível registrar a adoção.',
             )
@@ -89,8 +87,7 @@ export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
             confirmButtonColor: 'var(--cor-azul)',
           })
 
-          onAdocaoConcluida() 
-
+          onAdocaoConcluida()
         } catch (err) {
           Swal.fire({
             title: 'Ops! Algo deu errado.',
@@ -133,16 +130,28 @@ export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
                 className="d-block w-100 rounded"
                 src={logoBuscarPatas}
                 alt="Logo Buscar Patas"
-                style={{ height: '400px', objectFit: 'contain', padding: '1rem' }}
+                style={{
+                  height: '400px',
+                  objectFit: 'contain',
+                  padding: '1rem',
+                }}
               />
             )}
           </Col>
           <Col md={6}>
             <h4 className="mt-3 mt-md-0">Detalhes</h4>
-            <p><strong>Espécie:</strong> {capitalizeFirstLetter(pet.especie)}</p>
-            <p><strong>Idade Aproximada:</strong> {idade}</p>
-            <p><strong>Tamanho:</strong> {pet.tamanho || 'Não informado'}</p>
-            <p><strong>Descrição:</strong> {pet.descricao}</p>
+            <p>
+              <strong>Espécie:</strong> {capitalizeFirstLetter(pet.especie)}
+            </p>
+            <p>
+              <strong>Idade Aproximada:</strong> {idade}
+            </p>
+            <p>
+              <strong>Tamanho:</strong> {pet.tamanho || 'Não informado'}
+            </p>
+            <p>
+              <strong>Descrição:</strong> {pet.descricao}
+            </p>
             <div>
               {pet.personalidade && (
                 <Badge bg="warning" text="dark" className="p-2">
@@ -154,8 +163,15 @@ export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}> Fechar </Button>
-        <Button variant="primary" className="btn-principal" onClick={handleAdotarClick}>
+        <Button variant="secondary" onClick={onHide}>
+          {' '}
+          Fechar{' '}
+        </Button>
+        <Button
+          variant="primary"
+          className="btn-principal"
+          onClick={handleAdotarClick}
+        >
           Quero Adotar!
         </Button>
       </Modal.Footer>

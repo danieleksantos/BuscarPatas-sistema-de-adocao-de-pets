@@ -1,38 +1,53 @@
 import { useState, useEffect } from 'react'
-import { Card, Col, Row, Spinner, Alert, ListGroup, Form, Button } from 'react-bootstrap'
+import {
+  Card,
+  Col,
+  Row,
+  Spinner,
+  Alert,
+  ListGroup,
+  Form,
+  Button,
+} from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
 import './AdocoesPanel.css'
 import Swal from 'sweetalert2'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faPenToSquare,
+  faTrash,
+  faPlusCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import { AdocaoEditModal } from './AdocaoEditModal'
 import { AdocaoCreateModal } from './AdocaoCreateModal'
-import logoBuscarPatas from '../../assets/logo.png';
+import logoBuscarPatas from '../../assets/logo.png'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 const formatarData = (dataISO) => {
-  if (!dataISO || typeof dataISO !== 'string') return 'Data inválida';
+  if (!dataISO || typeof dataISO !== 'string') return 'Data inválida'
   try {
-    const dataObj = new Date(dataISO);
+    const dataObj = new Date(dataISO)
     return dataObj.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
       timeZone: 'UTC',
-    });
+    })
   } catch (error) {
-    console.error("Erro ao formatar data:", dataISO, error);
-    return 'Erro na data';
+    console.error('Erro ao formatar data:', dataISO, error)
+    return 'Erro na data'
   }
 }
 
 const formatarTelefone = (value) => {
-  if (!value) return 'Não informado';
-  const digitos = value.replace(/\D/g, '');
-  if (digitos.length === 11) return digitos.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
-  if (digitos.length === 10) return digitos.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
-  return value;
+  if (!value) return 'Não informado'
+  const digitos = value.replace(/\D/g, '')
+  if (digitos.length === 11)
+    return digitos.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3')
+  if (digitos.length === 10)
+    return digitos.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3')
+  return value
 }
 
 export function AdocoesPanel() {
@@ -52,10 +67,9 @@ export function AdocoesPanel() {
       setLoading(true)
       setError(null)
       const params = new URLSearchParams(filters)
-      const response = await fetch(
-        `${API_URL}/adocoes?${params.toString()}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
+      const response = await fetch(`${API_URL}/adocoes?${params.toString()}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       if (!response.ok) {
         throw new Error('Falha ao buscar adoções. Você tem permissão de admin?')
       }
@@ -64,7 +78,7 @@ export function AdocoesPanel() {
     } catch (err) {
       console.error(err)
       setError(err.message)
-      setAdocoes([]);
+      setAdocoes([])
     } finally {
       setLoading(false)
     }
@@ -99,10 +113,13 @@ export function AdocoesPanel() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`${API_URL}/adocoes/${adocao.adocao_id}`, {
-            method: 'DELETE',
-            headers: { Authorization: `Bearer ${token}` },
-          })
+          const response = await fetch(
+            `${API_URL}/adocoes/${adocao.adocao_id}`,
+            {
+              method: 'DELETE',
+              headers: { Authorization: `Bearer ${token}` },
+            },
+          )
           if (!response.ok) {
             const errData = await response.json()
             throw new Error(errData.error || 'Falha ao cancelar.')
@@ -224,34 +241,62 @@ export function AdocoesPanel() {
         )}
 
         {/* Lista de adoções existentes */}
-        {adocoes.map((adocao) => (
-          (adocao.pet && adocao.adotante) && (
-            <Col key={adocao.adocao_id}>
-              <Card className="h-100 shadow-sm adocao-card">
-                <Card.Img
-                  variant="top"
-                  src={ adocao.pet.imagem_url1 || logoBuscarPatas }
-                  alt={ adocao.pet.imagem_url1 ? `Foto de ${adocao.pet.nome}` : "Logo Buscar Patas" }
-                  style={{ objectFit: adocao.pet.imagem_url1 ? 'cover' : 'contain', padding: adocao.pet.imagem_url1 ? '0' : '0.5rem' }}
-                />
-                <Card.Body>
-                  <Card.Title className="fw-bold">{adocao.pet.nome}</Card.Title>
-                </Card.Body>
-                <ListGroup variant="flush">
-                  <ListGroup.Item><strong>Adotante:</strong> {adocao.adotante.nome}</ListGroup.Item>
-                  <ListGroup.Item><strong>Telefone:</strong> {formatarTelefone(adocao.adotante.telefone)}</ListGroup.Item>
-                  <ListGroup.Item><strong>Data:</strong> {formatarData(adocao.data_adocao)}</ListGroup.Item>
-                </ListGroup>
-                <Card.Footer>
-                  <div className="action-buttons-group">
-                    <FontAwesomeIcon icon={faPenToSquare} className="action-btn-card edit" title="Alterar pet desta adoção" onClick={() => handleShowEditModal(adocao)} />
-                    <FontAwesomeIcon icon={faTrash} className="action-btn-card delete" title="Cancelar esta adoção" onClick={() => handleDelete(adocao)} />
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-          )
-        ))}
+        {adocoes.map(
+          (adocao) =>
+            adocao.pet &&
+            adocao.adotante && (
+              <Col key={adocao.adocao_id}>
+                <Card className="h-100 shadow-sm adocao-card">
+                  <Card.Img
+                    variant="top"
+                    src={adocao.pet.imagem_url1 || logoBuscarPatas}
+                    alt={
+                      adocao.pet.imagem_url1
+                        ? `Foto de ${adocao.pet.nome}`
+                        : 'Logo Buscar Patas'
+                    }
+                    style={{
+                      objectFit: adocao.pet.imagem_url1 ? 'cover' : 'contain',
+                      padding: adocao.pet.imagem_url1 ? '0' : '0.5rem',
+                    }}
+                  />
+                  <Card.Body>
+                    <Card.Title className="fw-bold">
+                      {adocao.pet.nome}
+                    </Card.Title>
+                  </Card.Body>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>
+                      <strong>Adotante:</strong> {adocao.adotante.nome}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <strong>Telefone:</strong>{' '}
+                      {formatarTelefone(adocao.adotante.telefone)}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <strong>Data:</strong> {formatarData(adocao.data_adocao)}
+                    </ListGroup.Item>
+                  </ListGroup>
+                  <Card.Footer>
+                    <div className="action-buttons-group">
+                      <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className="action-btn-card edit"
+                        title="Alterar pet desta adoção"
+                        onClick={() => handleShowEditModal(adocao)}
+                      />
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        className="action-btn-card delete"
+                        title="Cancelar esta adoção"
+                        onClick={() => handleDelete(adocao)}
+                      />
+                    </div>
+                  </Card.Footer>
+                </Card>
+              </Col>
+            ),
+        )}
       </Row>
 
       {/* Modal de Edição */}

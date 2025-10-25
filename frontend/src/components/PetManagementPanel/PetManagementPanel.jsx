@@ -1,5 +1,14 @@
 import { useState, useEffect } from 'react'
-import { Col, Row, Spinner, Alert, Form, Button, Modal, Container } from 'react-bootstrap'
+import {
+  Col,
+  Row,
+  Spinner,
+  Alert,
+  Form,
+  Button,
+  Modal,
+  Container,
+} from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
 import Swal from 'sweetalert2'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,17 +20,21 @@ import { PetEditPanel } from '../DashboardContentAdmin/PetEditPanel'
 import './PetManagementPanel.css'
 import { PaginationControls } from '../PaginationControls/PaginationControls'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export function PetManagementPanel() {
   const [pets, setPets] = useState([])
-  const [pagination, setPagination] = useState(null);
+  const [pagination, setPagination] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { token } = useAuth()
 
   const [filters, setFilters] = useState({
-    nome: '', especie: '', tamanho: '', personalidade: '', status: '',
+    nome: '',
+    especie: '',
+    tamanho: '',
+    personalidade: '',
+    status: '',
     page: 1,
     limit: 8,
   })
@@ -36,32 +49,31 @@ export function PetManagementPanel() {
       setLoading(true)
       setError(null)
 
-      const activeFilters = {};
-      Object.keys(filters).forEach(key => {
+      const activeFilters = {}
+      Object.keys(filters).forEach((key) => {
         if (filters[key]) {
-          activeFilters[key] = filters[key];
+          activeFilters[key] = filters[key]
         }
-      });
-      activeFilters.page = filters.page || 1;
-      activeFilters.limit = filters.limit || 8;
+      })
+      activeFilters.page = filters.page || 1
+      activeFilters.limit = filters.limit || 8
 
       const params = new URLSearchParams(activeFilters)
 
-      const response = await fetch(
-        `${API_URL}/pets?${params.toString()}`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      )
+      const response = await fetch(`${API_URL}/pets?${params.toString()}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       if (!response.ok) {
         throw new Error('Falha ao buscar pets.')
       }
       const data = await response.json()
       setPets(data.data || [])
-      setPagination(data.pagination || null);
+      setPagination(data.pagination || null)
     } catch (err) {
       console.error(err)
       setError(err.message)
-      setPets([]);
-      setPagination(null);
+      setPets([])
+      setPagination(null)
     } finally {
       setLoading(false)
     }
@@ -74,18 +86,23 @@ export function PetManagementPanel() {
   const handleFilterChange = (newFilters) => {
     setFilters((prevFilters) => {
       const baseFilters = {
-         limit: prevFilters.limit,
-         page: 1
-      };
+        limit: prevFilters.limit,
+        page: 1,
+      }
       return { ...baseFilters, ...newFilters }
     })
   }
-   const handleClearFiltersInParent = () => {
-      setFilters(prev => ({
-         nome: '', especie: '', tamanho: '', personalidade: '', status: '',
-         page: 1, limit: prev.limit
-      }));
-   }
+  const handleClearFiltersInParent = () => {
+    setFilters((prev) => ({
+      nome: '',
+      especie: '',
+      tamanho: '',
+      personalidade: '',
+      status: '',
+      page: 1,
+      limit: prev.limit,
+    }))
+  }
 
   const handlePageChange = (newPage) => {
     setFilters((prevFilters) => ({ ...prevFilters, page: newPage }))
@@ -113,12 +130,14 @@ export function PetManagementPanel() {
           if (!response.ok) {
             const errData = await response.json()
             if (response.status === 409) {
-               throw new Error(errData.error || 'Não pode excluir: pet tem adoção.');
+              throw new Error(
+                errData.error || 'Não pode excluir: pet tem adoção.',
+              )
             }
             throw new Error(errData.error || 'Falha ao excluir pet.')
           }
           Swal.fire('Excluído!', 'O pet foi removido.', 'success')
-          fetchAllPets();
+          fetchAllPets()
         } catch (err) {
           Swal.fire('Erro!', err.message, 'error')
         }
@@ -143,13 +162,14 @@ export function PetManagementPanel() {
     fetchAllPets()
   }
 
-  // --- RENDERIZAÇÃO ---
   if (error) {
-     return (
-       <Container className="p-4">
-         <Alert variant="danger"><strong>Erro:</strong> {error}</Alert>
-       </Container>
-     )
+    return (
+      <Container className="p-4">
+        <Alert variant="danger">
+          <strong>Erro:</strong> {error}
+        </Alert>
+      </Container>
+    )
   }
 
   return (
@@ -159,9 +179,9 @@ export function PetManagementPanel() {
       {/* Paginação (Topo) */}
       <div className="mb-3">
         <PaginationControls
-            pagination={pagination}
-            onPageChange={handlePageChange}
-            onLimitChange={handleLimitChange}
+          pagination={pagination}
+          onPageChange={handlePageChange}
+          onLimitChange={handleLimitChange}
         />
       </div>
 
@@ -179,7 +199,10 @@ export function PetManagementPanel() {
         {/* Card de Adicionar */}
         <Col>
           <div className="pet-card-new" onClick={handleShowCreateModal}>
-            <FontAwesomeIcon icon={faPlusCircle} className="pet-card-new-icon" />
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              className="pet-card-new-icon"
+            />
             <h3 className="pet-card-new-title">Registrar Novo Pet</h3>
           </div>
         </Col>
@@ -187,13 +210,14 @@ export function PetManagementPanel() {
         {/* Feedback de Carregamento */}
         {loading && (
           <Col md={12} className="text-center mt-4">
-             <Spinner animation="border" />
-             <p>Carregando pets...</p>
+            <Spinner animation="border" />
+            <p>Carregando pets...</p>
           </Col>
         )}
 
         {/* Lista de Pets */}
-        {!loading && pets.map((pet) => (
+        {!loading &&
+          pets.map((pet) => (
             <Col key={pet.pet_id}>
               <PetCard
                 pet={pet}
@@ -202,8 +226,7 @@ export function PetManagementPanel() {
                 onDeleteClick={handleDelete}
               />
             </Col>
-          ))
-        }
+          ))}
 
         {/* Mensagem se não houver resultados */}
         {!loading && pets.length === 0 && (
@@ -215,17 +238,22 @@ export function PetManagementPanel() {
         )}
       </Row>
 
-       {/* Paginação (Base) */}
-       <div className="mt-0">
-         <PaginationControls
-            pagination={pagination}
-            onPageChange={handlePageChange}
-            onLimitChange={handleLimitChange}
+      {/* Paginação (Base) */}
+      <div className="mt-0">
+        <PaginationControls
+          pagination={pagination}
+          onPageChange={handlePageChange}
+          onLimitChange={handleLimitChange}
         />
-       </div>
+      </div>
 
       {/* Modal de Criação */}
-      <Modal show={showCreateModal} onHide={handleCloseModals} size="lg" backdrop="static">
+      <Modal
+        show={showCreateModal}
+        onHide={handleCloseModals}
+        size="lg"
+        backdrop="static"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Cadastrar Novo Pet</Modal.Title>
         </Modal.Header>
@@ -238,12 +266,20 @@ export function PetManagementPanel() {
       </Modal>
 
       {/* Modal de Edição */}
-      <Modal show={showEditModal} onHide={handleCloseModals} size="lg" backdrop="static">
+      <Modal
+        show={showEditModal}
+        onHide={handleCloseModals}
+        size="lg"
+        backdrop="static"
+      >
         <Modal.Header closeButton>
-           <Modal.Title>Editar Pet: {selectedPet?.nome ? capitalizeFirstLetter(selectedPet.nome) : ''}</Modal.Title>
+          <Modal.Title>
+            Editar Pet:{' '}
+            {selectedPet?.nome ? capitalizeFirstLetter(selectedPet.nome) : ''}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-           {selectedPet && (
+          {selectedPet && (
             <PetEditPanel
               pet={selectedPet}
               onSuccess={handleSuccess}
@@ -257,6 +293,6 @@ export function PetManagementPanel() {
 }
 
 function capitalizeFirstLetter(string) {
-  if (!string) return '';
-  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  if (!string) return ''
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 }

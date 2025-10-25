@@ -6,28 +6,22 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Iniciando o processo de seeding (apenas inserindo o que não existe)...');
 
-  // ------------------------------------------------------------------
-  // 1. GARANTIR A EXISTÊNCIA DO USUÁRIO ADMINISTRADOR
-  // ------------------------------------------------------------------
+ 
   const adminEmail = "buscarpatas@gmail.com";
   const adminPassword = "senha_123";
   const adminName = "Admin do Abrigo";
 
-  // 1.1. Tenta encontrar o Admin
   const existingAdminAuth = await prisma.auth.findUnique({
     where: { email: adminEmail },
-    // Inclui o Adotante para saber se todo o registro está completo
     include: { adotante: true }
   });
 
   let createdAdminAuth;
 
   if (existingAdminAuth) {
-    // Se o Auth já existe, usa ele.
     createdAdminAuth = existingAdminAuth;
     console.log(`Usuário Admin já existe. E-mail: ${adminEmail} (ID: ${existingAdminAuth.auth_id})`);
   } else {
-    // Se não existe, cria.
     const hashedPasswordAdmin = await bcrypt.hash(adminPassword, 10);
 
     createdAdminAuth = await prisma.auth.create({
@@ -51,10 +45,6 @@ async function main() {
     console.log(`Usuário Admin criado com sucesso! E-mail: ${adminEmail} (ID: ${createdAdminAuth.auth_id})`);
   }
 
-  // ------------------------------------------------------------------
-  // 2. CRIAÇÃO DOS DADOS DE TESTE (ADOTANTES E PETS)
-  // ------------------------------------------------------------------
-
   const senhaPadrao = await bcrypt.hash('senha_123', 10);
 
   // Dados dos usuários de teste
@@ -71,7 +61,6 @@ async function main() {
   ];
 
   let newAdotantesCount = 0;
-  // Cria os usuários (Auth e Adotante) APENAS SE NÃO EXISTIREM
   for (const userData of usersData) {
     const existingUser = await prisma.auth.findUnique({
       where: { email: userData.email },
@@ -182,8 +171,6 @@ async function main() {
 
   ];
 
-
-  // Encontra quais pets na lista de dados AINDA NÃO existem
   const petNames = petData.map(p => p.nome);
   const existingPets = await prisma.pet.findMany({
     where: {
@@ -208,16 +195,10 @@ async function main() {
 
   console.log(`${petsToCreate.length} novos pets criados.`);
 
-  // ----------------------------------------------------
-  // 3. CRIAÇÃO DAS ADOÇÕES (Dados de Relacionamento)
-  // ----------------------------------------------------
 
-  // Encontrando IDs. 
   const adotantes = await prisma.adotante.findMany();
-  // Pega TODOS os pets, incluindo os recém-criados
   const pets = await prisma.pet.findMany();
 
-  // Mapeando adotantes e pets por nome
   const adotanteMap = new Map();
   adotantes.forEach(a => adotanteMap.set(a.nome, a));
 
@@ -236,13 +217,11 @@ async function main() {
   ];
 
   let newAdoptionsCount = 0;
-  // Itera sobre as adoções que DEVEM existir
   for (const adocao of adocoesData) {
     const adotante = adotanteMap.get(adocao.adotanteNome);
     const pet = petMap.get(adocao.petNome);
 
     if (adotante && pet) {
-      // 3.1. Tenta encontrar a adoção existente para evitar duplicação
       const existingAdocao = await prisma.adocao.findFirst({
         where: {
           adotante_id: adotante.adotante_id,
@@ -251,7 +230,6 @@ async function main() {
       });
 
       if (!existingAdocao) {
-        // Se a adoção não existe, cria
         await prisma.adocao.create({
           data: {
             adotante_id: adotante.adotante_id,
@@ -259,7 +237,6 @@ async function main() {
           }
         });
 
-        // E atualiza o status do pet para ADOTADO
         await prisma.pet.update({
           where: { pet_id: pet.pet_id },
           data: { status: 'ADOTADO' }
@@ -268,7 +245,6 @@ async function main() {
         newAdoptionsCount++;
         console.log(`Nova Adoção realizada: ${adotante.nome} e ${pet.nome}.`);
       } else {
-        // A adoção já existe, apenas garante que o status do pet está correto.
         if (pet.status !== 'ADOTADO') {
           await prisma.pet.update({
             where: { pet_id: pet.pet_id },

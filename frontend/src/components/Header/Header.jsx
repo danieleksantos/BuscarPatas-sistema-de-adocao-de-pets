@@ -20,7 +20,7 @@ export function Header() {
   const navigate = useNavigate()
   const [expanded, setExpanded] = useState(false)
 
-  const location = useLocation();
+  const location = useLocation()
 
   const handleLogout = () => {
     logout()
@@ -85,24 +85,24 @@ export function Header() {
                 </Dropdown>
               ) : (
                 <>
-                <div className="d-flex flex-column flex-lg-row align-items-center"> 
-                  <Button
-                    as={Link}
-                    to="/cadastro"
-                    className={`btn-principal me-lg-2 mb-2 mb-lg-0 ${location.pathname === '/cadastro' ? 'active' : ''}`}
-                    onClick={() => setExpanded(false)} 
-                  >
-                    Cadastre-se
-                  </Button>
-                  
-                  <Button
-                    as={Link}
-                    to="/login"
-                    className={`btn-principal ${location.pathname === '/login' ? 'active' : ''}`}
-                    onClick={() => setExpanded(false)} 
-                  >
-                    Entrar
-                  </Button>
+                  <div className="d-flex flex-column flex-lg-row align-items-center">
+                    <Button
+                      as={Link}
+                      to="/cadastro"
+                      className={`btn-principal me-lg-2 mb-2 mb-lg-0 ${location.pathname === '/cadastro' ? 'active' : ''}`}
+                      onClick={() => setExpanded(false)}
+                    >
+                      Cadastre-se
+                    </Button>
+
+                    <Button
+                      as={Link}
+                      to="/login"
+                      className={`btn-principal ${location.pathname === '/login' ? 'active' : ''}`}
+                      onClick={() => setExpanded(false)}
+                    >
+                      Entrar
+                    </Button>
                   </div>
                 </>
               )}

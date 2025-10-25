@@ -18,12 +18,9 @@ export function AdocaoEditModal({ show, onHide, adocao, onUpdateSuccess }) {
         setLoading(true)
         setError(null)
         try {
-          const response = await fetch(
-            `${API_URL}/pets/disponiveis`, 
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            },
-          )
+          const response = await fetch(`${API_URL}/pets/disponiveis`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
           if (!response.ok) throw new Error('Falha ao buscar pets disponíveis.')
 
           const data = await response.json()
@@ -47,17 +44,14 @@ export function AdocaoEditModal({ show, onHide, adocao, onUpdateSuccess }) {
     }
 
     try {
-      const response = await fetch(
-        `${API_URL}/adocoes/${adocao.adocao_id}`, 
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ pet_id: parseInt(novoPetId) }),
+      const response = await fetch(`${API_URL}/adocoes/${adocao.adocao_id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-      )
+        body: JSON.stringify({ pet_id: parseInt(novoPetId) }),
+      })
 
       if (!response.ok) {
         const errData = await response.json()
@@ -65,7 +59,7 @@ export function AdocaoEditModal({ show, onHide, adocao, onUpdateSuccess }) {
       }
 
       Swal.fire('Sucesso!', 'A adoção foi atualizada.', 'success')
-      onUpdateSuccess() 
+      onUpdateSuccess()
       onHide()
     } catch (err) {
       Swal.fire('Erro!', err.message, 'error')
@@ -101,7 +95,7 @@ export function AdocaoEditModal({ show, onHide, adocao, onUpdateSuccess }) {
 
                 {/* Lista de outros pets disponíveis */}
                 {petsDisponiveis
-                  .filter((pet) => pet.pet_id !== adocao?.pet_id) 
+                  .filter((pet) => pet.pet_id !== adocao?.pet_id)
                   .map((pet) => (
                     <option key={pet.pet_id} value={pet.pet_id}>
                       {pet.nome} ({pet.especie})

@@ -3,7 +3,6 @@ import { Modal, Button, Form, Spinner, Alert } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
 import Swal from 'sweetalert2'
 
-// 1. Definição da URL da API (usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export function AdocaoCreateModal({ show, onHide, onCreateSuccess }) {
@@ -68,7 +67,6 @@ export function AdocaoCreateModal({ show, onHide, onCreateSuccess }) {
     }
 
     try {
-      // 4. CORREÇÃO: Usando API_URL
       const response = await fetch(`${API_URL}/adocoes/admin`, {
         method: 'POST',
         headers: {

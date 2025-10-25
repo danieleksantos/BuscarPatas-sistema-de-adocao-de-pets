@@ -3,7 +3,6 @@ import { Form, Button, Row, Col, Spinner } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
 import Swal from 'sweetalert2'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export function MinhasInformacoes() {
@@ -58,7 +57,7 @@ export function MinhasInformacoes() {
         throw new Error(errorData.error || 'Falha ao atualizar.')
       }
       const updatedUser = await response.json()
-      setUser((prevUser) => ({ ...prevUser, ...updatedUser })) 
+      setUser((prevUser) => ({ ...prevUser, ...updatedUser }))
       Swal.fire('Sucesso!', 'Suas informações foram atualizadas.', 'success')
     } catch (error) {
       Swal.fire(

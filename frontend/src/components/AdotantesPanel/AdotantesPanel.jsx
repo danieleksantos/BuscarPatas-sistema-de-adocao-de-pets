@@ -17,12 +17,11 @@ export function AdotantesPanel() {
   const [showEditModal, setShowEditModal] = useState(false)
   const [selectedAdotante, setSelectedAdotante] = useState(null)
 
-  // Envolvemos a função fetchAdotantes com useCallback
+  // função fetchAdotantes com useCallback
   const fetchAdotantes = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
-      // CORREÇÃO 1: Usando API_URL para buscar todos os adotantes
       const response = await fetch(`${API_URL}/adotantes`, {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -71,7 +70,6 @@ export function AdotantesPanel() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          // CORREÇÃO 2: Usando API_URL para a rota DELETE
           const response = await fetch(`${API_URL}/adotantes/${adotanteId}`, {
             method: 'DELETE',
             headers: { Authorization: `Bearer ${token}` },
@@ -96,7 +94,6 @@ export function AdotantesPanel() {
 
   const handleRoleChange = async (adotanteId, newRole) => {
     try {
-      // CORREÇÃO 3: Usando API_URL para a rota PATCH
       const response = await fetch(`${API_URL}/adotantes/${adotanteId}`, {
         method: 'PATCH',
         headers: {

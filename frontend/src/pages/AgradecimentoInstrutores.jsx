@@ -64,7 +64,9 @@ function InstrutorCard({ nome, area, fotoUrl, depoimento }) {
             />
           </div>
           <Card.Body className="d-flex flex-column">
-            <Card.Title className="cor-laranja fw-bolder fs-4">{nome}</Card.Title>
+            <Card.Title className="cor-laranja fw-bolder fs-4">
+              {nome}
+            </Card.Title>
             <Card.Subtitle className="mb-3 text-muted fw-bold">
               {area}
             </Card.Subtitle>

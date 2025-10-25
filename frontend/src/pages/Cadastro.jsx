@@ -15,7 +15,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { Footer } from '../components/Footer/Footer'
 import Swal from 'sweetalert2'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 // Função para verificar a força da senha

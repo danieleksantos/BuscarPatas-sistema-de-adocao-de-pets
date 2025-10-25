@@ -10,9 +10,10 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 export function BuscarPets() {
   const [pets, setPets] = useState([])
   const [pagination, setPagination] = useState(null)
-  const [loading, setLoading] = useState(false) 
+  const [loading, setLoading] = useState(false)
   const [filters, setFilters] = useState({
-    page: 1, limit: 8,
+    page: 1,
+    limit: 8,
   })
   const [showModal, setShowModal] = useState(false)
   const [selectedPet, setSelectedPet] = useState(null)
@@ -21,28 +22,29 @@ export function BuscarPets() {
   useEffect(() => {
     async function fetchPets() {
       setLoading(true)
-      const activeFilters = { status: 'DISPONIVEL' };
-      Object.keys(filters).forEach(key => {
+      const activeFilters = { status: 'DISPONIVEL' }
+      Object.keys(filters).forEach((key) => {
         if (filters[key]) {
-          activeFilters[key] = filters[key];
+          activeFilters[key] = filters[key]
         }
-      });
-      activeFilters.page = filters.page || 1;
-      activeFilters.limit = filters.limit || 8;
+      })
+      activeFilters.page = filters.page || 1
+      activeFilters.limit = filters.limit || 8
 
       const queryParams = new URLSearchParams(activeFilters).toString()
       const url = `${API_URL}/pets?${queryParams}`
 
       try {
         const response = await fetch(url)
-         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok)
+          throw new Error(`HTTP error! status: ${response.status}`)
         const data = await response.json()
         setPets(data.data || [])
         setPagination(data.pagination || null)
       } catch (error) {
         console.error('Falha ao buscar pets:', error)
         setPets([])
-        setPagination(null);
+        setPagination(null)
       } finally {
         setLoading(false)
       }
@@ -79,35 +81,49 @@ export function BuscarPets() {
 
   return (
     <>
-      <Container as="section" id="busca-pets-dashboard" className="py-5 my-4" ref={buscaSectionRef}>
-        <h2 className="text-center mb-4 display-5 fw-light"> Encontre seu novo amigo </h2>
+      <Container
+        as="section"
+        id="busca-pets-dashboard"
+        className="py-5 my-4"
+        ref={buscaSectionRef}
+      >
+        <h2 className="text-center mb-4 display-5 fw-light">
+          {' '}
+          Encontre seu novo amigo{' '}
+        </h2>
 
         {/* Paginação Topo */}
         <div className="mb-3">
-            <PaginationControls
-                pagination={pagination}
-                onPageChange={handlePageChange}
-                onLimitChange={handleLimitChange}
-            />
+          <PaginationControls
+            pagination={pagination}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+          />
         </div>
 
         {/* Filtros */}
         <PetFilters onFilterChange={handleFilterChange} className="mb-3" />
 
         {/* Lista de Pets */}
-        {loading && <div className="text-center"><Spinner animation="border" /></div>}
-        {!loading && pets.length === 0 && <Alert variant="info">Nenhum pet encontrado com esses filtros.</Alert>}
+        {loading && (
+          <div className="text-center">
+            <Spinner animation="border" />
+          </div>
+        )}
+        {!loading && pets.length === 0 && (
+          <Alert variant="info">Nenhum pet encontrado com esses filtros.</Alert>
+        )}
         {!loading && pets.length > 0 && (
-            <PetList pets={pets} onPetClick={handleShowModal} />
+          <PetList pets={pets} onPetClick={handleShowModal} />
         )}
 
         {/* Paginação Base */}
         <div className="mt-4">
-            <PaginationControls
-                pagination={pagination}
-                onPageChange={handlePageChange}
-                onLimitChange={handleLimitChange}
-            />
+          <PaginationControls
+            pagination={pagination}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+          />
         </div>
       </Container>
 

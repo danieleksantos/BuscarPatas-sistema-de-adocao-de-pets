@@ -107,7 +107,7 @@ export const getAllAvailablePets = async (req, res) => {
   try {
     const petsDisponiveis = await prisma.pet.findMany({
       where: { status: 'DISPONIVEL' },
-      orderBy: { nome: 'asc' } // Opcional
+      orderBy: { nome: 'asc' } 
     });
     res.status(200).json(petsDisponiveis);
   } catch (error) {

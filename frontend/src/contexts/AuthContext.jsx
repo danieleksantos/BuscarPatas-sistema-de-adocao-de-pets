@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 const AuthContext = createContext()
@@ -14,7 +13,6 @@ export function AuthProvider({ children }) {
     const fetchUserData = async () => {
       if (token) {
         try {
-          // CORREÇÃO: Usando API_URL para a rota /profile/me
           const response = await fetch(`${API_URL}/profile/me`, {
             headers: { Authorization: `Bearer ${token}` },
           })

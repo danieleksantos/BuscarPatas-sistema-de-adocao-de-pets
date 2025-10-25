@@ -17,14 +17,10 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 
 const app = express();
 
-// ------------------------------------------------------------------
-//  CONFIGURAÇÃO DE CORS SEGURA E ROBUSTA
-// ------------------------------------------------------------------
 
 const PRODUCTION_URL_HARDCODE = 'https://buscar-patas-sistema-de-adocao-de-p.vercel.app';
 
-// 1. Processa a variável de ambiente CLIENT_URL
-// Converte a string separada por vírgulas em um array e remove espaços em branco (trim)
+
 const ENV_ALLOWED_URLS = process.env.CLIENT_URL 
   ? process.env.CLIENT_URL.split(',').map(url => url.trim())
   : [];
@@ -36,15 +32,12 @@ const VERCEL_PROJECT_NAME = 'buscar-patas-sistema-de-adocao-de-pets';
 const VERCEL_PREVIEW_REGEX = new RegExp(`^https://${VERCEL_PROJECT_NAME}-.*\\.vercel\\.app$`);
 
 
-// 2. Cria a lista final de origens (Strings e Regex)
 const allowedOrigins = [
     ...ENV_ALLOWED_URLS, 
-    PRODUCTION_URL_HARDCODE, // Garante que o domínio de produção funcione
+    PRODUCTION_URL_HARDCODE,
     VERCEL_PREVIEW_REGEX 
 ];
 
-
-// Aplica o middleware CORS
 app.use(cors({
     origin: allowedOrigins, 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',

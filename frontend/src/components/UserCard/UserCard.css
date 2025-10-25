@@ -1,7 +1,7 @@
 .user-card {
   border: none;
   border-radius: 15px;
-  overflow: hidden; /* Garante que nada sai do card */
+  overflow: hidden; 
 }
 
 .user-info-container {
@@ -20,10 +20,9 @@
 }
 
 .user-details {
-  /* Permite que o texto quebre e não empurre outros elementos */
   word-break: break-word;
   overflow-wrap: break-word;
-  min-width: 0; /* Essencial para flexbox permitir quebra de texto */
+  min-width: 0; 
 }
 
 .user-name {
