@@ -41,7 +41,7 @@ Este projeto foi construído com as seguintes tecnologias:
 
 ## 🚀 Começando
 
-Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento do backend.
+Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
 ### Pré-requisitos
 
@@ -62,7 +62,7 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento d
     ```
 
 3.  **Crie o arquivo de ambiente:**
-    Crie um arquivo chamado `.env` na pasta `backend` e adicione a sua string de conexão com o banco de dados.
+    Crie um arquivo chamado `.env` na pasta `backend` e adicione as strings de conexões.
 
     *Exemplo de `.env`:*
     ```env
@@ -146,7 +146,7 @@ Abaixo estão os principais endpoints disponíveis na API.
 
 Abaixo está o Diagrama de Entidade-Relacionamento que representa a estrutura do banco de dados:
 
-![Diagrama de Entidade-Relacionamento](./frontend/assets/DER.png)
+![Diagrama de Entidade-Relacionamento](./frontend/src/assets/DER.png)
 
 ---
 
