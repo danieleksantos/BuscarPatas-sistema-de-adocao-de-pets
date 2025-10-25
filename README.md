@@ -105,12 +105,10 @@ npm run dev
 🌐 Deploy da Aplicação
 O projeto está hospedado nas seguintes plataformas:
 
-**Backend** - [Render](https://dashboard.render.com/web/srv-d3sv62ngi27c73dvjosg)
-**Frontend** - [Vercel](https://buscar-patas-sistema-de-adocao-de-p.vercel.app/)
-
-Frontend: Vercel (Para a aplicação ReactJS)
-[Frontend] ()
-
+| Serviço | Plataforma | Link |
+| :--- | :--- | :--- |
+| **Backend** | Render | [Link para o Backend](https://dashboard.render.com/web/srv-d3sv62ngi27c73dvjosg) |
+| **Frontend** | Vercel | [Link para o Frontend](https://buscar-patas-sistema-de-adocao-de-p.vercel.app/) |
 
 ## 📚 Documentação da API
 
