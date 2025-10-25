@@ -146,7 +146,7 @@ Abaixo estão os principais endpoints disponíveis na API.
 
 Abaixo está o Diagrama de Entidade-Relacionamento que representa a estrutura do banco de dados:
 
-![Diagrama de Entidade-Relacionamento](./frontend/src/assets/DER.png)
+![Diagrama de Entidade-Relacionamento](frontend/public/DER-BuscarPatas.png)
 
 ---
 
