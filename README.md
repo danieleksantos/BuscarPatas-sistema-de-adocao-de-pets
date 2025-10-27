@@ -10,10 +10,10 @@ O sistema é segmentado para atender às necessidades dos diferentes tipos de us
 
 ### 👥 Funcionalidades para Adotantes (Role: `USER`)
 
--   **👤 Autenticação Segura:** Cadastro de novo usuário e Login com email/senha. *+ Opção de Login Social (Gmail).*
--   **🔍 Busca e Filtragem:** Buscar pets disponíveis por espécie, tamanho, personalidade.
+-   **👤 Autenticação Segura:** Cadastro de novo usuário e Login com email/senha. *+ Opção de Login Gmail.*
+-   **🔍 Busca e Filtragem:** Buscar pets disponíveis por espécie, tamanho, personalidade e nome.
 -   **💖 Processo de Adoção:** Iniciar o processo de adoção de um pet diretamente pela plataforma.
--   **📈 Painel do Adotante:** Visualizar o histórico e o status das adoções realizadas.
+-   **📈 Painel do Adotante:** Visualizar o histórico das adoções realizadas.
 
 ### ⚙️ Funcionalidades para Administradores (Role: `ADMIN`)
 
@@ -35,11 +35,15 @@ Este projeto foi construído com as seguintes tecnologias:
     -   Bcrypt.js
 -   **Frontend:**
     -   ReactJS
+    -   Bootstrap
 -   **Ferramentas de Desenvolvimento:**
     -   Nodemon
-    -   Insomnia (para testes de API)
+    -   Insomnia e Postman (para testes de API)
 
-## 🚀 Começando
+## ➡️ Você pode acessar e testar esse projeto no link:
+[Buscar Patas](https://buscar-patas-sistema-de-adocao-de-p.vercel.app/)
+
+## 🚀 Para rodar localmente
 
 Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
@@ -66,14 +70,14 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
     *Exemplo de `.env`:*
     ```env
-    "DATABASE_URL=""
-    JWT_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    CLOUDINARY_CLOUD_NAME="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    CLOUDINARY_API_KEY="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    CLOUDINARY_API_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    "DATABASE_URL="seu_segredo_super_secreto"
+    JWT_SECRET="seu_segredo_super_secreto"
+    CLOUDINARY_CLOUD_NAME="seu_segredo_super_secreto"
+    CLOUDINARY_API_KEY="seu_segredo_super_secreto"
+    CLOUDINARY_API_SECRET="seu_segredo_super_secreto"
 
-    GOOGLE_CLIENT_ID="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    GOOGLE_CLIENT_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    GOOGLE_CLIENT_ID="seu_segredo_super_secreto"
+    GOOGLE_CLIENT_SECRET="seu_segredo_super_secreto"
     FRONTEND_URL="https://buscar-patas-sistema-de-adocao-de-p.vercel.app/"
 
     CORS_ORIGINS="http://localhost:5173,https://buscar-patas-sistema-de-adocao-de-pets-lbt1r2xw7.vercel.app,https://buscar-patas-sist*.vercel.app"
