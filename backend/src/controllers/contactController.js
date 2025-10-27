@@ -1,16 +1,18 @@
 import nodemailer from 'nodemailer';
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.sendgrid.net', 
-    port: 587,
-    secure: false, 
-    auth: {
-        user: 'apikey', 
-        pass: process.env.EMAIL_PASS 
-    }
-});
-
 export const sendContactEmail = async (req, res) => {
+    
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.sendgrid.net', 
+        port: 587,
+        secure: false,            
+        auth: {
+            user: 'apikey',        // Nome de usuário padrão para SendGrid
+            pass: process.env.EMAIL_PASS // chave de API do SendGrid
+        }
+    });
+
     const { name, email, message } = req.body;
 
     if (!name || !email || !message) {
@@ -19,8 +21,8 @@ export const sendContactEmail = async (req, res) => {
 
     // Configuração do email a ser enviado
     const mailOptions = {
-        from: `"${name}" <${email}>`, // Remetente (usuário do formulário)
-        to: process.env.EMAIL_USER,    // Destinatário fixo (buscarpatas@gmail.com)
+        from: `"${name}" <${email}>`, 
+        to: process.env.DESTINATION_EMAIL,    //  (buscarpatas@gmail.com)
         subject: `Nova Dúvida/Contato - Site Buscar Patas`,
         html: `
             <h3>Nova Mensagem de Contato</h3>
