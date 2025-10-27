@@ -160,8 +160,9 @@ Abaixo estão os principais endpoints disponíveis na API.
 ## 🗺️ Modelo do Banco de Dados (DER)
 
 Abaixo está o Diagrama de Entidade-Relacionamento que representa a estrutura do banco de dados:
+<br>
+<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/XqSBh7hg/DER-Buscar-Patas.png' border='0' alt='DER-Buscar-Patas'></a>
 
-![Diagrama de Entidade-Relacionamento](/frontend/public/DER-BuscarPatas.png)
 
 ---
 
