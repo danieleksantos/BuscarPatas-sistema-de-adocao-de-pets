@@ -8,8 +8,8 @@ export const sendContactEmail = async (req, res) => {
         port: 2525,
         secure: false,
         auth: {
-            user: 'apikey',       
-            pass: process.env.EMAIL_PASS 
+            user: 'apikey',
+            pass: process.env.EMAIL_PASS
         },
         connectionTimeout: 30000
     });
@@ -22,15 +22,78 @@ export const sendContactEmail = async (req, res) => {
 
     const mailOptions = {
         from: process.env.VERIFIED_SENDER_EMAIL,
-        to: process.env.DESTINATION_EMAIL,   
+        to: process.env.DESTINATION_EMAIL,
         replyTo: email,
         subject: `Nova Dúvida/Contato - Site Buscar Patas`,
         html: `
-            <p>Nova Mensagem de <strong>${name}</strong></p>
-            <hr>
-            <p><strong>Mensagem:</strong></p>
-            <p style="white-space: pre-wrap;">${message}</p>
-            <p>${email}</p>
+            <body bgcolor="#ffffff" text="#000000" style="-webkit-text-size-adjust: none; background-color: #ffffff; font-family: Arial, helvetica, sans-serif; line-height: 100%; font-size: 16px; color: #000000; padding: 0px;">
+    <table width="100%" role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin: 0px auto; max-width: 600px; background-color: #F7F7FA;">
+        <tr>
+            <td align="center" valign="top" style="padding: 16px 24px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="responsive-td" width="72" align="center" valign="top" style="padding: 0px 0px 16px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <img width="72" height="auto"
+                                            src="/logo.png"
+                                            alt="Logo Buscar Patas"
+                                            style="max-width: 72px; display: block; border: 0; margin: 0; padding: 0; outline: none; font-family: Arial, Sans-serif; font-size: 16px; color: #000000; line-height: 24px; font-weight: 400;">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td align="center" valign="top" style="padding: 0px 32px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="center" valign="top">
+                            <p style="font-family: Arial, Sans-serif; font-size: 24px; color: #2F6C9B; line-height: 32px; font-weight: 700; margin: 0px; text-align: left;">
+                                Nova mesagem de <span style="font-weight: 700;">${name}</span>
+                            </p>
+                            <p style="font-family: Arial, Sans-serif; font-size: 18px; color: #000000; line-height: 25px; font-weight: 400; margin: 30px 0px; text-align: left;">
+                                ${message}
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top">
+                            <p style="font-family: Arial, Sans-serif; font-size: 10px; color: #636769; line-height: 15px; font-weight: 300; margin: 40px 0px 30px; text-align: left;">
+                                Este é um e-mail automático enviado pelo formulário de contato do site Buscar Patas. Para responder ao usuário, use o e-mail no campo Responder Para.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td align="center" valign="top" style="padding: 0px 32px 16px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="center" valign="top">
+                            <p style="font-family: Arial, Sans-serif; font-size: 14px; color: #86C89A; line-height: 18.2px; font-weight: 400; margin: 40px 0 0;">
+                                <span style="font-weight: 800;">Este é um canal oficial Buscar Patas</span>
+                                <br>
+                                © 2025 Copyright. Todos os direitos reservados Buscar Patas.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
         `,
     };
 
