@@ -1,16 +1,17 @@
 import nodemailer from 'nodemailer';
 
 export const sendContactEmail = async (req, res) => {
-    
+
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.sendgrid.net', 
-        port: 587,
-        secure: false,            
+        host: 'smtp.sendgrid.net',
+        port: 2525,
+        secure: false,
         auth: {
             user: 'apikey',        // Nome de usuário padrão para SendGrid
             pass: process.env.EMAIL_PASS // chave de API do SendGrid
-        }
+        },
+        connectionTimeout: 30000
     });
 
     const { name, email, message } = req.body;
@@ -21,7 +22,7 @@ export const sendContactEmail = async (req, res) => {
 
     // Configuração do email a ser enviado
     const mailOptions = {
-        from: `"${name}" <${email}>`, 
+        from: `"${name}" <${email}>`,
         to: process.env.DESTINATION_EMAIL,    //  (buscarpatas@gmail.com)
         subject: `Nova Dúvida/Contato - Site Buscar Patas`,
         html: `
