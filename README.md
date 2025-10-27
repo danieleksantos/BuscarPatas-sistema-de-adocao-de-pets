@@ -128,7 +128,7 @@ Abaixo estão os principais endpoints disponíveis na API.
 | :--- | :--- | :--- | :--- |
 | `/auth/register` | `POST` | Registra um novo adotante (role `USER`). | Pública |
 | `/auth/google` | `GET` | Inicia o fluxo de autenticação com Google. | Pública |
-| `/auth/google/callback` | `GET`  Callback para processar o retorno da autenticação Google e gerar o JWT. | Pública |
+| `/auth/google/callback` | `GET` | Callback para processar o retorno da autenticação Google e gerar o JWT. | Pública |
 | `/auth/login` | `POST` | Autentica um usuário e retorna um token JWT. | Pública |
 | `/pets` | `GET` | Lista todos os pets com filtros (`?tamanho=...`). | Pública |
 | `/pets/disponiveis` | `GET` | Lista todos os pets com status `DISPONIVEL`. | Pública |
