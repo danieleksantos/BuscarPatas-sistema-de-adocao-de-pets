@@ -1,5 +1,10 @@
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaw, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faPaw,
+  faQuestionCircle,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons'
 import './FaqSection.css'
 
 const faqItems = [
@@ -41,6 +46,51 @@ const faqItems = [
 ]
 
 export function FAQSection() {
+  // ESTADO PARA O FORMULÁRIO E FEEDBACK
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState({
+    loading: false,
+    error: null,
+    success: null,
+  })
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatus({ loading: true, error: null, success: null })
+
+    // ATENÇÃO: Verifique se VITE_API_URL está configurada corretamente no seu .env do frontend
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao enviar a mensagem.')
+      }
+
+      setStatus({ loading: false, error: null, success: data.message })
+      setFormData({ name: '', email: '', message: '' }) // Limpa o formulário
+    } catch (error) {
+      console.error('Erro de envio:', error)
+      setStatus({
+        loading: false,
+        error: error.message || 'Falha na conexão com o servidor.',
+      })
+    }
+  }
+
   return (
     <section className="container py-5 my-5">
       <h2 className="text-center mb-5 display-4 fw-light" id="faq">
@@ -83,6 +133,79 @@ export function FAQSection() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="row mt-5 pt-5 justify-content-center">
+        <div className="col-12 col-lg-8">
+          <h3 className="text-center mb-4 text-primary">
+            Ainda com dúvidas?
+            <FontAwesomeIcon icon={faEnvelope} className="ms-3" />
+          </h3>
+          <p className="text-center mb-4 text-secondary">
+            Envie-nos sua pergunta diretamente! Nossa equipe responderá o mais
+            rápido possível.
+          </p>
+          <form onSubmit={handleSubmit} className="shadow p-4 bg-light rounded">
+            {status.error && (
+              <div className="alert alert-danger">{status.error}</div>
+            )}
+            {status.success && (
+              <div className="alert alert-success">{status.success}</div>
+            )}
+
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Nome
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                required
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="message" className="form-label">
+                Sua Mensagem
+              </label>
+              <textarea
+                className="form-control"
+                id="message"
+                name="message"
+                rows="4"
+                required
+                value={formData.message}
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            <div className="d-grid">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={status.loading}
+              >
+                {status.loading ? 'Enviando...' : 'Enviar Pergunta'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   )

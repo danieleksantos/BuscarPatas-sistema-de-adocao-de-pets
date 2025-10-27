@@ -4,12 +4,12 @@
   "description": "API Node.js com Express e PostgreSQL (Prisma)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js", 
+    "start": "nodemon src/server.js",
     "start:prod": "node src/server.js",
-    "build": "npx prisma generate", 
-    "seed": "node prisma/seed.js", 
-    "migrate:deploy": "npx prisma migrate deploy", 
-    "deploy": "npm run build && npm run migrate:deploy && npm run seed", 
+    "build": "npx prisma generate",
+    "seed": "node prisma/seed.js",
+    "migrate:deploy": "npx prisma migrate deploy",
+    "deploy": "npm run build && npm run migrate:deploy && npm run seed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -30,6 +30,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
+    "nodemailer": "^7.0.10",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0"
   },
