@@ -70,7 +70,7 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
     *Exemplo de `.env`:*
     ```env
-    "DATABASE_URL="seu_segredo_super_secreto"
+    DATABASE_URL="seu_segredo_super_secreto"
     JWT_SECRET="seu_segredo_super_secreto"
     CLOUDINARY_CLOUD_NAME="seu_segredo_super_secreto"
     CLOUDINARY_API_KEY="seu_segredo_super_secreto"
@@ -154,7 +154,7 @@ Abaixo está o Diagrama de Entidade-Relacionamento que representa a estrutura do
 
 ---
 
-## 💡 Próximas Melhorias (Roadmap)
+## 💡 Próximas Melhorias
 
 Temos um conjunto de melhorias planejadas para aprimorar a experiência do usuário e a funcionalidade do sistema:
 
