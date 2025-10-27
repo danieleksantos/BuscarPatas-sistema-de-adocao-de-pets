@@ -127,22 +127,33 @@ Abaixo estão os principais endpoints disponíveis na API.
 | **Endpoint** | **Método** | **Descrição** | **Protegida?** |
 | :--- | :--- | :--- | :--- |
 | `/auth/register` | `POST` | Registra um novo adotante (role `USER`). | Pública |
+| `/auth/google` | `GET` | Inicia o fluxo de autenticação com Google. | Pública |
+| `/auth/google/callback` | `GET`  Callback para processar o retorno da autenticação Google e gerar o JWT. | Pública |
 | `/auth/login` | `POST` | Autentica um usuário e retorna um token JWT. | Pública |
 | `/pets` | `GET` | Lista todos os pets com filtros (`?tamanho=...`). | Pública |
 | `/pets/disponiveis` | `GET` | Lista todos os pets com status `DISPONIVEL`. | Pública |
 | `/pets/adotados` | `GET` | Lista todos os pets com status `ADOTADO`. | Pública |
 | `/pets` | `POST` | Cadastra um novo pet. | ADMIN |
-| `/pets/bulk` | `POST` | Cadastra múltiplos pets de uma vez. | ADMIN |
+| `/pets/:id` | `GET` | Busca os detalhes de um pet pelo seu ID. | Pública |
 | `/pets/:id` | `PATCH` | Atualiza parcialmente os dados de um pet. | ADMIN |
 | `/pets/:id` | `DELETE` | Deleta um pet. | ADMIN |
+| `/pets/especies` | `GET` | Lista espécies únicas de pets para filtro. | Pública |
 | `/adotantes` | `GET` | Lista todos os adotantes. | ADMIN |
-| `/adotantes` | `POST` | Cadastra um novo adotante. | ADMIN |
+| `/adotantes/sem-adocao` | `GET` | Lista todos os adotantes que não possuem registros de adoção. | ADMIN |
 | `/adotantes/:id` | `PATCH` | Atualiza parcialmente um adotante. | ADMIN |
 | `/adotantes/:id` | `DELETE` | Deleta um adotante. | ADMIN |
+| `/profile/me` | `PATCH` | Atualiza o perfil (dados do Adotante) do usuário logado. | USER |
+| `/profile/me` | `GET` | Obtém o perfil (dados do Adotante) do usuário logado. | USER |
 | `/adocoes` | `GET` | Lista todos os registros de adoção. | ADMIN |
-| `/adocoes` | `POST` | Cria um novo registro de adoção. | ADMIN |
+| `/adocoes` | `POST` | Cria um novo registro de adoção para o usuário logado. | USER |
+| `/adocoes/me` | `GET` | Lista todos os registros de adoção do usuário logado (Adotante). | USER |
+| `/adocoes/admin` | `POST` | Cria um registro de adoção em nome do Admin (pode definir o adotante/pet) | ADMIN |
 | `/adocoes/:id` | `PATCH` | Atualiza um registro de adoção. | ADMIN |
+| `/dashboard/counts` | `GET` | Obtém contagens para o painel de administração. | ADMIN |
 | `/adocoes/:id` | `DELETE` | Deleta um registro de adoção. | ADMIN |
+| `/upload` | `POST` | Faz o upload de uma imagem. | ADMIN |
+
+
 
 ---
 
