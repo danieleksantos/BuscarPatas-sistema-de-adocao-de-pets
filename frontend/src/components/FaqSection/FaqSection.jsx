@@ -5,6 +5,7 @@ import {
   faQuestionCircle,
   faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
+import Swal from 'sweetalert2'
 import './FaqSection.css'
 
 const faqItems = [
@@ -47,11 +48,7 @@ const faqItems = [
 
 export function FAQSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState({
-    loading: false,
-    error: null,
-    success: null,
-  })
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -59,7 +56,7 @@ export function FAQSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setStatus({ loading: true, error: null, success: null })
+    setLoading(true)
 
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -78,14 +75,27 @@ export function FAQSection() {
         throw new Error(data.message || 'Erro ao enviar a mensagem.')
       }
 
-      setStatus({ loading: false, error: null, success: data.message })
+      Swal.fire({
+        title: 'Mensagem Enviada!',
+        text: data.message,
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      })
+
       setFormData({ name: '', email: '', message: '' })
+      setLoading(false)
     } catch (error) {
       console.error('Erro de envio:', error)
-      setStatus({
-        loading: false,
-        error: error.message || 'Falha na conexão com o servidor.',
+
+      Swal.fire({
+        title: 'Falha no Envio!',
+        text:
+          error.message || 'Falha na conexão com o servidor. Tente novamente.',
+        icon: 'error',
+        confirmButtonText: 'Ok',
       })
+
+      setLoading(false)
     }
   }
 
@@ -135,22 +145,15 @@ export function FAQSection() {
 
       <div className="row mt-5 pt-5 justify-content-center">
         <div className="col-12 col-lg-8">
-          <h3 className="text-center mb-4 text-primary">
+          <h3 className="text-center mb-4">
             Ainda com dúvidas?
             <FontAwesomeIcon icon={faEnvelope} className="ms-3" />
           </h3>
           <p className="text-center mb-4 text-secondary">
-            Envie-nos sua pergunta diretamente! Nossa equipe responderá o mais
-            rápido possível.
+            Envie-nos sua pergunta! Nossa equipe responderá o mais rápido
+            possível.
           </p>
           <form onSubmit={handleSubmit} className="shadow p-4 bg-light rounded">
-            {status.error && (
-              <div className="alert alert-danger">{status.error}</div>
-            )}
-            {status.success && (
-              <div className="alert alert-success">{status.success}</div>
-            )}
-
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
                 Nome
@@ -196,10 +199,10 @@ export function FAQSection() {
             <div className="d-grid">
               <button
                 type="submit"
-                className="btn btn-primary"
-                disabled={status.loading}
+                className="btn btn-principal"
+                disabled={loading}
               >
-                {status.loading ? 'Enviando...' : 'Enviar Pergunta'}
+                {loading ? 'Enviando...' : 'Enviar Pergunta'}
               </button>
             </div>
           </form>

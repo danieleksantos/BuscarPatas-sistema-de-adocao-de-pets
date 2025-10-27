@@ -26,12 +26,11 @@ export const sendContactEmail = async (req, res) => {
         replyTo: email,
         subject: `Nova Dúvida/Contato - Site Buscar Patas`,
         html: `
-            <h3>Nova Mensagem de Contato</h3>
-            <p><strong>Nome:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
+            <p>Nova Mensagem de <strong>${name}</strong></p>
             <hr>
             <p><strong>Mensagem:</strong></p>
             <p style="white-space: pre-wrap;">${message}</p>
+            <p>${email}</p>
         `,
     };
 
