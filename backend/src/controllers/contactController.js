@@ -36,10 +36,25 @@ export const sendContactEmail = async (req, res) => {
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center" valign="top">
-                                        <img width="72" height="auto"
+                                        <img
                                             src="https://i.postimg.cc/d0JYWM4G/logo.png"
                                             alt="Logo Buscar Patas"
-                                            style="max-width: 72px; display: block; border: 0; margin: 0; padding: 0; outline: none; font-family: Arial, Sans-serif; font-size: 16px; color: #000000; line-height: 24px; font-weight: 400;">
+                                            width="72" 
+                                            style="
+                                            max-width: 72px; 
+                                            height: auto; 
+                                            display: block; 
+                                            border: 0; 
+                                            margin: 0; 
+                                            padding: 0; 
+                                            outline: none; 
+                                            font-family: Arial, Sans-serif; 
+                                            font-size: 16px; 
+                                            color: #000000; 
+                                            line-height: 24px; 
+                                            font-weight: 400;
+                                            "
+                                        />
                                     </td>
                                 </tr>
                             </table>
