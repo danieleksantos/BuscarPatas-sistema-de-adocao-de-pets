@@ -46,7 +46,6 @@ const faqItems = [
 ]
 
 export function FAQSection() {
-  // ESTADO PARA O FORMULÁRIO E FEEDBACK
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState({
     loading: false,
@@ -62,7 +61,6 @@ export function FAQSection() {
     e.preventDefault()
     setStatus({ loading: true, error: null, success: null })
 
-    // ATENÇÃO: Verifique se VITE_API_URL está configurada corretamente no seu .env do frontend
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
     try {
@@ -81,7 +79,7 @@ export function FAQSection() {
       }
 
       setStatus({ loading: false, error: null, success: data.message })
-      setFormData({ name: '', email: '', message: '' }) // Limpa o formulário
+      setFormData({ name: '', email: '', message: '' })
     } catch (error) {
       console.error('Erro de envio:', error)
       setStatus({

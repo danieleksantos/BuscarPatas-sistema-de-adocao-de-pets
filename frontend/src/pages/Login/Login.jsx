@@ -17,7 +17,6 @@ import Swal from 'sweetalert2'
 import { useAuth } from '../../contexts/AuthContext'
 import './Login.css'
 
-// DEFINIÇÃO DA URL DA API (Usando import.meta.env para Vite)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export function Login() {
@@ -59,7 +58,6 @@ export function Login() {
     }
 
     try {
-      // CORREÇÃO 1: Usando API_URL para a rota de login padrão
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,7 +95,6 @@ export function Login() {
   }
 
   const handleGoogleLogin = () => {
-    // CORREÇÃO 2: Usando API_URL para a rota de login do Google
     window.location.href = `${API_URL}/auth/google`
   }
 

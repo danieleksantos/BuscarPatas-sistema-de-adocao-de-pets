@@ -8,8 +8,8 @@ export const sendContactEmail = async (req, res) => {
         port: 2525,
         secure: false,
         auth: {
-            user: 'apikey',        // Nome de usuário padrão para SendGrid
-            pass: process.env.EMAIL_PASS // chave de API do SendGrid
+            user: 'apikey',       
+            pass: process.env.EMAIL_PASS 
         },
         connectionTimeout: 30000
     });
@@ -20,10 +20,10 @@ export const sendContactEmail = async (req, res) => {
         return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
     }
 
-    // Configuração do email a ser enviado
     const mailOptions = {
-        from: `"${name}" <${email}>`,
-        to: process.env.DESTINATION_EMAIL,    //  (buscarpatas@gmail.com)
+        from: process.env.VERIFIED_SENDER_EMAIL,
+        to: process.env.DESTINATION_EMAIL,   
+        replyTo: email,
         subject: `Nova Dúvida/Contato - Site Buscar Patas`,
         html: `
             <h3>Nova Mensagem de Contato</h3>
