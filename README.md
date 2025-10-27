@@ -10,10 +10,10 @@ O sistema é segmentado para atender às necessidades dos diferentes tipos de us
 
 ### 👥 Funcionalidades para Adotantes (Role: `USER`)
 
--   **👤 Autenticação Segura:** Cadastro de novo usuário e Login com email/senha. *+ Opção de Login Social (Gmail).*
--   **🔍 Busca e Filtragem:** Buscar pets disponíveis por espécie, tamanho, personalidade.
+-   **👤 Autenticação Segura:** Cadastro de novo usuário e Login com email/senha. *+ Opção de Login Gmail.*
+-   **🔍 Busca e Filtragem:** Buscar pets disponíveis por espécie, tamanho, personalidade e nome.
 -   **💖 Processo de Adoção:** Iniciar o processo de adoção de um pet diretamente pela plataforma.
--   **📈 Painel do Adotante:** Visualizar o histórico e o status das adoções realizadas.
+-   **📈 Painel do Adotante:** Visualizar o histórico das adoções realizadas.
 
 ### ⚙️ Funcionalidades para Administradores (Role: `ADMIN`)
 
@@ -35,11 +35,15 @@ Este projeto foi construído com as seguintes tecnologias:
     -   Bcrypt.js
 -   **Frontend:**
     -   ReactJS
+    -   Bootstrap
 -   **Ferramentas de Desenvolvimento:**
     -   Nodemon
-    -   Insomnia (para testes de API)
+    -   Insomnia e Postman (para testes de API)
 
-## 🚀 Começando
+## ➡️ Você pode acessar e testar esse projeto no link:
+[Buscar Patas](https://buscar-patas-sistema-de-adocao-de-p.vercel.app/)
+
+## 🚀 Para rodar localmente
 
 Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
@@ -66,14 +70,14 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
     *Exemplo de `.env`:*
     ```env
-    "DATABASE_URL=""
-    JWT_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    CLOUDINARY_CLOUD_NAME="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    CLOUDINARY_API_KEY="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    CLOUDINARY_API_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    DATABASE_URL="seu_segredo_super_secreto"
+    JWT_SECRET="seu_segredo_super_secreto"
+    CLOUDINARY_CLOUD_NAME="seu_segredo_super_secreto"
+    CLOUDINARY_API_KEY="seu_segredo_super_secreto"
+    CLOUDINARY_API_SECRET="seu_segredo_super_secreto"
 
-    GOOGLE_CLIENT_ID="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
-    GOOGLE_CLIENT_SECRET="seu_segredo_super_secreto_pode_ser_qualquer_coisa"
+    GOOGLE_CLIENT_ID="seu_segredo_super_secreto"
+    GOOGLE_CLIENT_SECRET="seu_segredo_super_secreto"
     FRONTEND_URL="https://buscar-patas-sistema-de-adocao-de-p.vercel.app/"
 
     CORS_ORIGINS="http://localhost:5173,https://buscar-patas-sistema-de-adocao-de-pets-lbt1r2xw7.vercel.app,https://buscar-patas-sist*.vercel.app"
@@ -123,22 +127,33 @@ Abaixo estão os principais endpoints disponíveis na API.
 | **Endpoint** | **Método** | **Descrição** | **Protegida?** |
 | :--- | :--- | :--- | :--- |
 | `/auth/register` | `POST` | Registra um novo adotante (role `USER`). | Pública |
+| `/auth/google` | `GET` | Inicia o fluxo de autenticação com Google. | Pública |
+| `/auth/google/callback` | `GET` | Callback para processar o retorno da autenticação Google e gerar o JWT. | Pública |
 | `/auth/login` | `POST` | Autentica um usuário e retorna um token JWT. | Pública |
 | `/pets` | `GET` | Lista todos os pets com filtros (`?tamanho=...`). | Pública |
 | `/pets/disponiveis` | `GET` | Lista todos os pets com status `DISPONIVEL`. | Pública |
 | `/pets/adotados` | `GET` | Lista todos os pets com status `ADOTADO`. | Pública |
 | `/pets` | `POST` | Cadastra um novo pet. | ADMIN |
-| `/pets/bulk` | `POST` | Cadastra múltiplos pets de uma vez. | ADMIN |
+| `/pets/:id` | `GET` | Busca os detalhes de um pet pelo seu ID. | Pública |
 | `/pets/:id` | `PATCH` | Atualiza parcialmente os dados de um pet. | ADMIN |
 | `/pets/:id` | `DELETE` | Deleta um pet. | ADMIN |
+| `/pets/especies` | `GET` | Lista espécies únicas de pets para filtro. | Pública |
 | `/adotantes` | `GET` | Lista todos os adotantes. | ADMIN |
-| `/adotantes` | `POST` | Cadastra um novo adotante. | ADMIN |
+| `/adotantes/sem-adocao` | `GET` | Lista todos os adotantes que não possuem registros de adoção. | ADMIN |
 | `/adotantes/:id` | `PATCH` | Atualiza parcialmente um adotante. | ADMIN |
 | `/adotantes/:id` | `DELETE` | Deleta um adotante. | ADMIN |
+| `/profile/me` | `PATCH` | Atualiza o perfil (dados do Adotante) do usuário logado. | USER |
+| `/profile/me` | `GET` | Obtém o perfil (dados do Adotante) do usuário logado. | USER |
 | `/adocoes` | `GET` | Lista todos os registros de adoção. | ADMIN |
-| `/adocoes` | `POST` | Cria um novo registro de adoção. | ADMIN |
+| `/adocoes` | `POST` | Cria um novo registro de adoção para o usuário logado. | USER |
+| `/adocoes/me` | `GET` | Lista todos os registros de adoção do usuário logado (Adotante). | USER |
+| `/adocoes/admin` | `POST` | Cria um registro de adoção em nome do Admin (pode definir o adotante/pet) | ADMIN |
 | `/adocoes/:id` | `PATCH` | Atualiza um registro de adoção. | ADMIN |
+| `/dashboard/counts` | `GET` | Obtém contagens para o painel de administração. | ADMIN |
 | `/adocoes/:id` | `DELETE` | Deleta um registro de adoção. | ADMIN |
+| `/upload` | `POST` | Faz o upload de uma imagem. | ADMIN |
+
+
 
 ---
 
@@ -146,11 +161,11 @@ Abaixo estão os principais endpoints disponíveis na API.
 
 Abaixo está o Diagrama de Entidade-Relacionamento que representa a estrutura do banco de dados:
 
-![Diagrama de Entidade-Relacionamento](./frontend/src/assets/DER.png)
+![Diagrama de Entidade-Relacionamento](/frontend/public/DER-BuscarPatas.png)
 
 ---
 
-## 💡 Próximas Melhorias (Roadmap)
+## 💡 Próximas Melhorias
 
 Temos um conjunto de melhorias planejadas para aprimorar a experiência do usuário e a funcionalidade do sistema:
 
