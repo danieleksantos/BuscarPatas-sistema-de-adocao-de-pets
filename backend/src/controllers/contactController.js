@@ -32,14 +32,14 @@ export const sendContactEmail = async (req, res) => {
             <td align="center" valign="top" style="padding: 16px 24px;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td class="responsive-td" width="72" align="center" valign="top" style="padding: 0px 0px 16px;">
+                        <td class="responsive-td" width="80" align="center" valign="top" style="padding: 0px 0px 16px;">
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center" valign="top">
                                         <img
                                             src="https://i.postimg.cc/d0JYWM4G/logo.png"
                                             alt="Logo Buscar Patas"
-                                            width="72" 
+                                            width="80" 
                                             style="
                                             max-width: 72px; 
                                             height: auto; 
@@ -72,7 +72,7 @@ export const sendContactEmail = async (req, res) => {
                     <tr>
                         <td align="center" valign="top">
                             <p style="font-family: Arial, Sans-serif; font-size: 24px; color: #2F6C9B; line-height: 32px; font-weight: 700; margin: 0px; text-align: left;">
-                                Nova mesagem de <span style="font-weight: 700;">${name}</span>
+                                Nova mesagem de <span style="font-weight: 700;">${name}:</span>
                             </p>
                             <p style="font-family: Arial, Sans-serif; font-size: 18px; color: #000000; line-height: 25px; font-weight: 400; margin: 30px 0px; text-align: left;">
                                 ${message}
