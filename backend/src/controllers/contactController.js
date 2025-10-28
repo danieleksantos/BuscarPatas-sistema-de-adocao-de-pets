@@ -26,8 +26,20 @@ export const sendContactEmail = async (req, res) => {
         replyTo: email,
         subject: `Nova Dúvida/Contato - Site Buscar Patas`,
         html: `
-            <body bgcolor="#ffffff" text="#000000" style="-webkit-text-size-adjust: none; background-color: #ffffff; font-family: Arial, helvetica, sans-serif; line-height: 100%; font-size: 16px; color: #000000; padding: 0px;">
-    <table width="100%" role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin: 0px auto; max-width: 600px; background-color: #F7F7FA;">
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buscar Patas - Adoção de pets email</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000"
+    style="-webkit-text-size-adjust: none; background-color: #ffffff; font-family: Arial, helvetica, sans-serif; line-height: 100%; font-size: 16px; color: #000000; padding: 0px;">
+    <table width="100%" role="presentation" align="center" cellpadding="0" cellspacing="0" border="0"
+        style="margin: 0px auto; max-width: 600px; background-color: #F7F7FA;">
         <tr>
             <td align="center" valign="top" style="padding: 16px 24px;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -36,11 +48,8 @@ export const sendContactEmail = async (req, res) => {
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center" valign="top">
-                                        <img
-                                            src="https://i.postimg.cc/d0JYWM4G/logo.png"
-                                            alt="Logo Buscar Patas"
-                                            width="80" 
-                                            style="
+                                        <img src="https://i.postimg.cc/d0JYWM4G/logo.png" alt="Logo Buscar Patas"
+                                            width="80" style="
                                             max-width: 72px; 
                                             height: auto; 
                                             display: block; 
@@ -53,8 +62,7 @@ export const sendContactEmail = async (req, res) => {
                                             color: #000000; 
                                             line-height: 24px; 
                                             font-weight: 400;
-                                            "
-                                        />
+                                            " />
                                     </td>
                                 </tr>
                             </table>
@@ -64,17 +72,19 @@ export const sendContactEmail = async (req, res) => {
                 </table>
             </td>
         </tr>
-        
+
 
         <tr>
             <td align="center" valign="top" style="padding: 0px 32px;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td align="center" valign="top">
-                            <p style="font-family: Arial, Sans-serif; font-size: 24px; color: #2F6C9B; line-height: 32px; font-weight: 700; margin: 0px; text-align: left;">
+                            <p
+                                style="font-family: Arial, Sans-serif; font-size: 24px; color: #2F6C9B; line-height: 32px; font-weight: 700; margin: 0px; text-align: left;">
                                 Nova mesagem de <span style="font-weight: 700;">${name}:</span>
                             </p>
-                            <p style="font-family: Arial, Sans-serif; font-size: 18px; color: #000000; line-height: 25px; font-weight: 400; margin: 30px 0px; text-align: left;">
+                            <p
+                                style="font-family: Arial, Sans-serif; font-size: 18px; color: #000000; line-height: 25px; font-weight: 400; margin: 30px 0px; text-align: left;">
                                 ${message}
                             </p>
                         </td>
@@ -82,8 +92,10 @@ export const sendContactEmail = async (req, res) => {
 
                     <tr>
                         <td align="center" valign="top">
-                            <p style="font-family: Arial, Sans-serif; font-size: 10px; color: #636769; line-height: 15px; font-weight: 300; margin: 40px 0px 30px; text-align: left;">
-                                Este é um e-mail automático enviado pelo formulário de contato do site Buscar Patas. Para responder ao usuário, use o e-mail no campo Responder Para.
+                            <p
+                                style="font-family: Arial, Sans-serif; font-size: 10px; color: #636769; line-height: 15px; font-weight: 300; margin: 40px 0px 30px; text-align: left;">
+                                Este é um e-mail automático enviado pelo formulário de contato do site Buscar Patas.
+                                Para responder ao usuário, use o e-mail no campo Responder Para.
                             </p>
                         </td>
                     </tr>
@@ -97,7 +109,8 @@ export const sendContactEmail = async (req, res) => {
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td align="center" valign="top">
-                            <p style="font-family: Arial, Sans-serif; font-size: 14px; color: #86C89A; line-height: 18.2px; font-weight: 400; margin: 40px 0 0;">
+                            <p
+                                style="font-family: Arial, Sans-serif; font-size: 14px; color: #86C89A; line-height: 18.2px; font-weight: 400; margin: 40px 0 0;">
                                 <span style="font-weight: 800;">Este é um canal oficial Buscar Patas</span>
                                 <br>
                                 © 2025 Copyright. Todos os direitos reservados Buscar Patas.
@@ -109,6 +122,8 @@ export const sendContactEmail = async (req, res) => {
         </tr>
     </table>
 </body>
+
+</html>
         `,
     };
 
