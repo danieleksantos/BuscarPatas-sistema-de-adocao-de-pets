@@ -8,6 +8,7 @@ import { Footer } from '../components/Footer/Footer'
 import { PaginationControls } from '../components/PaginationControls/PaginationControls'
 import { PetDetailModal } from '../components/PetDetailModal/PetDetailModal'
 import AnimatedBackground from '../components/AnimatedBackground/AnimatedBackground'
+import { useAdoptionCount } from '../hooks/useAdoptionCount'
 
 export function Home() {
   const [pets, setPets] = useState([])
@@ -20,6 +21,7 @@ export function Home() {
   const [showModal, setShowModal] = useState(false)
   const [selectedPet, setSelectedPet] = useState(null)
   const buscaSectionRef = useRef(null)
+  const { petsAdotados, loading: loadingBanner } = useAdoptionCount()
 
   useEffect(() => {
     async function fetchPets() {
@@ -83,19 +85,39 @@ export function Home() {
   }
   const homeBackgroundImageUrl = '/patinhas.png'
 
+  const adoptionsCountTitle = loadingBanner
+    ? 'Buscando o total de pets que já encontraram um lar...'
+    : `O Buscar Patas já ajudou ${petsAdotados} pets a encontrarem um lar`
+
+  const firstBanner = (
+    <CtaBanner
+      imageUrl="/gato-e-cachorro.jpg"
+      imageAlt="Cachorro e Gato"
+      title="O seu novo melhor amigo está te esperando!"
+      buttonText="Encontre seu Pet"
+      buttonHref="#busca"
+      onClick={(e) => {
+        e.preventDefault()
+        buscaSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+      }}
+    />
+  )
+
+  // O segundo banner agora usa a variável adoptionsCountTitle:
+  const secondBanner = (
+    <CtaBanner
+      imageUrl="/mao-humana-segurando-pata.jpg"
+      imageAlt="Mão segurando patinha"
+      title={adoptionsCountTitle}
+      buttonText="Saiba mais sobre nós"
+      buttonHref="/sobre"
+      reversed={true}
+    />
+  )
+
   return (
     <main style={{ position: 'relative' }}>
-      <CtaBanner
-        imageUrl="/gato-e-cachorro.jpg"
-        imageAlt="Cachorro e Gato"
-        title="O seu novo melhor amigo está te esperando!"
-        buttonText="Encontre seu Pet"
-        buttonHref="#busca"
-        onClick={(e) => {
-          e.preventDefault()
-          buscaSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
-        }}
-      />
+      {firstBanner}
 
       <Container
         as="section"
@@ -147,14 +169,8 @@ export function Home() {
         </div>
       </Container>
 
-      <CtaBanner
-        imageUrl="/mao-humana-segurando-pata.jpg"
-        imageAlt="Mão segurando patinha"
-        title="O buscar Patas já ajudou milhares de pets a encontrarem um lar"
-        buttonText="Saiba mais sobre nós"
-        buttonHref="/sobre"
-        reversed={true}
-      />
+      {secondBanner}
+
       <FAQSection />
       <Footer />
 
