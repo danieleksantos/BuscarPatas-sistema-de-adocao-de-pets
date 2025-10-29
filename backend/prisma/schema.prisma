@@ -32,6 +32,11 @@ enum PersonalidadePet {
   INDEPENDENTE
 }
 
+enum Sexo {
+  MACHO
+  FEMEA
+}
+
 // Modelos do Banco de Dados
 
 // NOVO MODELO PARA AUTENTICAÇÃO
@@ -66,6 +71,7 @@ model Adotante {
 model Pet {
   pet_id          Int               @id @default(autoincrement())
   nome            String
+  sexo            Sexo              @default(FEMEA)
   especie         String
   data_nascimento DateTime?         @db.Date
   descricao       String?
