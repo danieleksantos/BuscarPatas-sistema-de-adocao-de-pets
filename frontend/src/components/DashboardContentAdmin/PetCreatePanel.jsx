@@ -13,6 +13,7 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
     descricao: '',
     tamanho: 'PEQUENO',
     personalidade: 'CALMO',
+    sexo: 'FEMEA',
   })
   const [imageFile, setImageFile] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -42,6 +43,7 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
         formData[key] ||
         key === 'tamanho' ||
         key === 'personalidade' ||
+        key === 'sexo' ||
         key === 'data_nascimento'
       ) {
         data.append(key, formData[key])
@@ -75,10 +77,9 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
 
   return (
     <>
-      {/* Formulário de Criação */}
       <Form onSubmit={handleSubmit}>
         <Row>
-          <Col md={6}>
+          <Col md={12}>
             <Form.Group className="mb-3">
               <Form.Label>Nome do Pet*</Form.Label>
               <Form.Control
@@ -88,6 +89,36 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
                 onChange={handleChange}
                 required
               />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label>Sexo*</Form.Label>
+              <div>
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Fêmea"
+                  name="sexo"
+                  value="FEMEA"
+                  checked={formData.sexo === 'FEMEA'}
+                  onChange={handleChange}
+                  required
+                />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Macho"
+                  name="sexo"
+                  value="MACHO"
+                  checked={formData.sexo === 'MACHO'}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </Form.Group>
           </Col>
           <Col md={6}>
@@ -103,6 +134,7 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             </Form.Group>
           </Col>
         </Row>
+
         <Form.Group className="mb-3">
           <Form.Label>Descrição</Form.Label>
           <Form.Control
@@ -113,6 +145,7 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             onChange={handleChange}
           />
         </Form.Group>
+
         <Row>
           <Col md={4}>
             <Form.Group className="mb-3">
@@ -154,6 +187,7 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             </Form.Group>
           </Col>
         </Row>
+
         <Form.Group className="mb-3">
           <Form.Label>Imagem Principal (Opcional)</Form.Label>
           <Form.Control
@@ -163,7 +197,7 @@ export function PetCreatePanel({ onSuccess, onCancel }) {
             onChange={handleFileChange}
           />
         </Form.Group>
-        {/* Botões de Ação */}
+
         <div className="d-flex justify-content-end mt-3">
           <Button variant="secondary" onClick={onCancel} className="me-2">
             Cancelar

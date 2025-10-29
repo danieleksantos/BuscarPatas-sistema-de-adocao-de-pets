@@ -140,22 +140,38 @@ export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
           </Col>
           <Col md={6}>
             <h4 className="mt-3 mt-md-0">Detalhes</h4>
+
+            <p>
+              <strong>Nome:</strong> {capitalizeFirstLetter(pet.nome)}
+            </p>
+
             <p>
               <strong>Espécie:</strong> {capitalizeFirstLetter(pet.especie)}
             </p>
+
+            <p>
+              <strong>Sexo:</strong>{' '}
+              {capitalizeFirstLetter(pet.sexo || 'Não informado')}
+            </p>
+
             <p>
               <strong>Idade Aproximada:</strong> {idade}
             </p>
+
             <p>
-              <strong>Tamanho:</strong> {pet.tamanho || 'Não informado'}
+              <strong>Tamanho:</strong>{' '}
+              {capitalizeFirstLetter(pet.tamanho || 'Não informado')}
             </p>
+
             <p>
-              <strong>Descrição:</strong> {pet.descricao}
+              <strong>Descrição:</strong>{' '}
+              {pet.descricao || 'Nenhuma descrição fornecida.'}
             </p>
+
             <div>
               {pet.personalidade && (
                 <Badge bg="warning" text="dark" className="p-2">
-                  {pet.personalidade}
+                  {capitalizeFirstLetter(pet.personalidade)}
                 </Badge>
               )}
             </div>
@@ -164,8 +180,7 @@ export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
-          {' '}
-          Fechar{' '}
+          Fechar
         </Button>
         <Button
           variant="primary"

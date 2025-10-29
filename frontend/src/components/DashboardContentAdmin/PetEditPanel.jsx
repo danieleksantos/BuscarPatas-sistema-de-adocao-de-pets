@@ -25,6 +25,7 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
         tamanho: pet.tamanho || 'PEQUENO',
         personalidade: pet.personalidade || 'CALMO',
         status: pet.status || 'DISPONIVEL',
+        sexo: pet.sexo || 'FEMEA',
       })
       setNewImageFile(null)
       setImagePreview(null)
@@ -71,7 +72,7 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
       }
       Swal.fire('Sucesso!', 'Pet atualizado!', 'success').then(() => {
         onSuccess()
-      }) // Chama onSuccess (do Stashed changes)
+      })
     } catch (error) {
       Swal.fire('Erro!', error.message, 'error')
     } finally {
@@ -93,11 +94,9 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
 
   return (
     <>
-      {/* Formulário de Edição */}
       <Form onSubmit={handleUpdate}>
-        {/* Linha Nome / Espécie */}
         <Row>
-          <Col md={6}>
+          <Col md={12}>
             <Form.Group className="mb-3">
               <Form.Label>Nome*</Form.Label>
               <Form.Control
@@ -107,6 +106,35 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
                 onChange={handleFormChange}
                 required
               />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label>Sexo*</Form.Label>
+              <div>
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Fêmea"
+                  name="sexo"
+                  value="FEMEA"
+                  checked={formData.sexo === 'FEMEA'}
+                  onChange={handleFormChange}
+                  required
+                />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Macho"
+                  name="sexo"
+                  value="MACHO"
+                  checked={formData.sexo === 'MACHO'}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
             </Form.Group>
           </Col>
           <Col md={6}>
@@ -122,7 +150,6 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
             </Form.Group>
           </Col>
         </Row>
-        {/* Descrição */}
         <Form.Group className="mb-3">
           <Form.Label>Descrição</Form.Label>
           <Form.Control
@@ -133,7 +160,6 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
             onChange={handleFormChange}
           />
         </Form.Group>
-        {/* Linha Data Nasc / Tamanho / Personalidade */}
         <Row>
           <Col md={4}>
             <Form.Group className="mb-3">
@@ -175,7 +201,6 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
             </Form.Group>
           </Col>
         </Row>
-        {/* Linha Status */}
         <Row>
           <Col md={4}>
             <Form.Group className="mb-3">
@@ -191,8 +216,6 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
             </Form.Group>
           </Col>
         </Row>
-
-        {/* Campo de Alteração de Imagem */}
         <Form.Group className="mb-3">
           <Form.Label>Alterar Imagem Principal (Opcional)</Form.Label>
           <div className="mb-2 text-center" style={{ minHeight: '100px' }}>
@@ -222,16 +245,12 @@ export function PetEditPanel({ pet, onSuccess, onCancel }) {
             onChange={handleNewFileChange}
           />
           <Form.Text muted>
-            {' '}
-            Selecione uma nova imagem para substituir a atual.{' '}
+            Selecione uma nova imagem para substituir a atual.
           </Form.Text>
         </Form.Group>
-
-        {/* Botões de Ação */}
         <div className="d-flex justify-content-end mt-3">
           <Button variant="secondary" onClick={onCancel} className="me-2">
-            {' '}
-            Cancelar{' '}
+            Cancelar
           </Button>
           <Button type="submit" className="btn-principal" disabled={loading}>
             {loading ? <Spinner size="sm" /> : 'Salvar Alterações'}
