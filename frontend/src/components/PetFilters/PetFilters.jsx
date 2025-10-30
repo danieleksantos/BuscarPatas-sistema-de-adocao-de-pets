@@ -19,12 +19,13 @@ export function PetFilters({
   useEffect(() => {
     async function fetchEspecies() {
       try {
-        const response = await fetch(`${API_URL}/pets/especies`)
+        // Sua lógica existente para buscar espécies
+        const response = await fetch(`${API_URL}/pets/especies`) 
         if (!response.ok) {
           throw new Error('Falha ao carregar espécies')
         }
         const data = await response.json()
-        setEspecies(data)
+        setEspecies(data) // Ex: ['CACHORRO', 'GATO']
       } catch (error) {
         console.error(error)
       }
@@ -41,12 +42,18 @@ export function PetFilters({
     const personalidade = formData.get('personalidade')
     const especie = formData.get('especie')
     const nome = formData.get('nome')
+    // === ALTERAÇÃO 1: COLETAR NOVO FILTRO ===
+    const sexo = formData.get('sexo')
+    // =======================================
     const status = showStatusFilter ? formData.get('status') : undefined
 
     if (tamanho) filters.tamanho = tamanho
     if (personalidade) filters.personalidade = personalidade
     if (especie) filters.especie = especie
     if (nome) filters.nome = nome
+    // === ALTERAÇÃO 1.1: ADICIONAR NOVO FILTRO À LISTA ===
+    if (sexo) filters.sexo = sexo
+    // ====================================================
     if (status) filters.status = status
 
     onFilterChange(filters)
@@ -65,12 +72,16 @@ export function PetFilters({
   }
 
   const adminColSize = 3
+  const userColSize = 2 // Usando md={2} para cada um dos 5 filtros de usuário (2*5=10/12)
 
   return (
     <Form
       onSubmit={handleFilter}
       className={`p-4 rounded shadow-sm bg-light ${className}`}
     >
+      {/* ----------------------------------------------------- */}
+      {/* ---------- SEÇÃO ADMIN (showStatusFilter: true) --------- */}
+      {/* ----------------------------------------------------- */}
       {showStatusFilter && (
         <>
           <Row className="align-items-end g-3 mb-3">
@@ -95,7 +106,8 @@ export function PetFilters({
             </Col>
           </Row>
           <Row className="align-items-end g-3">
-            <Col md={adminColSize}>
+            {/* Mantém 3 colunas para Tamanho, Personalidade e Status */}
+            <Col md={adminColSize}> 
               <Form.Group controlId="tamanhoFiltroAdmin">
                 <Form.Label className="fw-bold">Tamanho</Form.Label>
                 <Form.Select name="tamanho">
@@ -117,6 +129,21 @@ export function PetFilters({
                 </Form.Select>
               </Form.Group>
             </Col>
+
+            {/* === ALTERAÇÃO 2: NOVO FILTRO DE SEXO PARA ADMIN === */}
+            <Col md={adminColSize}>
+              <Form.Group controlId="sexoFiltroAdmin">
+                <Form.Label className="fw-bold">Sexo</Form.Label>
+                <Form.Select name="sexo">
+                  <option value="">Ambos</option>
+                  {/* Enviando em MAIÚSCULAS para consistência com outros filtros */}
+                  <option value="MACHO">Macho</option> 
+                  <option value="FEMEA">Fêmea</option> 
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            {/* ==================================================== */}
+
             <Col md={adminColSize}>
               <Form.Group controlId="statusFiltro">
                 <Form.Label className="fw-bold">Status</Form.Label>
@@ -127,7 +154,9 @@ export function PetFilters({
                 </Form.Select>
               </Form.Group>
             </Col>
-            <Col md={adminColSize} className="d-flex">
+
+            {/* Ajuste o layout dos botões se precisar */}
+            <Col md={adminColSize} className="d-flex"> 
               <Button
                 type="button"
                 variant="outline-secondary"
@@ -146,15 +175,20 @@ export function PetFilters({
         </>
       )}
 
+      {/* ----------------------------------------------------- */}
+      {/* ---------- SEÇÃO USUÁRIO (showStatusFilter: false) --------- */}
+      {/* ----------------------------------------------------- */}
       {!showStatusFilter && (
         <Row className="align-items-end g-3">
-          <Col md={2}>
+          {/* Nome */}
+          <Col md={userColSize}> 
             <Form.Group controlId="nomeFiltroUser">
               <Form.Label className="fw-bold">Nome</Form.Label>
               <Form.Control type="text" name="nome" placeholder="Ex: Bob" />
             </Form.Group>
           </Col>
-          <Col md={2}>
+          {/* Espécie */}
+          <Col md={userColSize}>
             <Form.Group controlId="especieFiltroUser">
               <Form.Label className="fw-bold">Espécie</Form.Label>
               <Form.Select name="especie">
@@ -167,7 +201,8 @@ export function PetFilters({
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col md={2}>
+          {/* Tamanho */}
+          <Col md={userColSize}>
             <Form.Group controlId="tamanhoFiltroUser">
               <Form.Label className="fw-bold">Tamanho</Form.Label>
               <Form.Select name="tamanho">
@@ -178,7 +213,8 @@ export function PetFilters({
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col md={2}>
+          {/* Personalidade */}
+          <Col md={userColSize}>
             <Form.Group controlId="personalidadeFiltroUser">
               <Form.Label className="fw-bold">Personalidade</Form.Label>
               <Form.Select name="personalidade">
@@ -189,7 +225,23 @@ export function PetFilters({
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col md={4} className="d-flex">
+          
+          {/* === ALTERAÇÃO 3: NOVO FILTRO DE SEXO PARA USUÁRIO === */}
+          <Col md={userColSize}> 
+            <Form.Group controlId="sexoFiltroUser">
+              <Form.Label className="fw-bold">Sexo</Form.Label>
+              <Form.Select name="sexo">
+                <option value="">Ambos</option>
+                {/* Enviando em MAIÚSCULAS para consistência com outros filtros */}
+                <option value="MACHO">Macho</option> 
+                <option value="FEMEA">Fêmea</option> 
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          {/* ======================================================= */}
+          
+          {/* Botões - Ocupa as 2 colunas restantes (12 - 5*2 = 2) */}
+          <Col md={2} className="d-flex"> 
             <Button
               type="button"
               variant="outline-secondary"

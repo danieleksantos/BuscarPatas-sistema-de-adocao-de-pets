@@ -24,10 +24,10 @@ const calcularIdade = (dataNascimento) => {
 }
 
 export function PetDetailModal({ show, onHide, pet, onAdocaoConcluida }) {
-  if (!pet) return null
-
-  const { isAuthenticated, user, token } = useAuth()
+  const { isAuthenticated, token } = useAuth()
   const navigate = useNavigate()
+
+  if (!pet) return null
 
   const handleAdotarClick = async () => {
     if (!isAuthenticated) {

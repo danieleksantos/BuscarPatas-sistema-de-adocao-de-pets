@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Container, Spinner, Alert } from 'react-bootstrap'
 import { CtaBanner } from '../components/CtaBanner/CtaBanner'
-import { FAQSection } from '../components/FaqSection/FaqSection'
+import { FAQSection } from '../components/FaqSection/FAQSection'
 import { PetFilters } from '../components/PetFilters/PetFilters'
 import { PetList } from '../components/PetList/PetList'
 import { Footer } from '../components/Footer/Footer'
@@ -9,6 +9,7 @@ import { PaginationControls } from '../components/PaginationControls/PaginationC
 import { PetDetailModal } from '../components/PetDetailModal/PetDetailModal'
 import AnimatedBackground from '../components/AnimatedBackground/AnimatedBackground'
 import { AdoptionCountBanner } from '../components/AdoptionCountBanner/AdoptionCountBanner'
+
 export function Home() {
   const [pets, setPets] = useState([])
   const [pagination, setPagination] = useState(null)
@@ -16,6 +17,7 @@ export function Home() {
   const [filters, setFilters] = useState({
     page: 1,
     limit: 8,
+    sexo: '',
   })
   const [showModal, setShowModal] = useState(false)
   const [selectedPet, setSelectedPet] = useState(null)
