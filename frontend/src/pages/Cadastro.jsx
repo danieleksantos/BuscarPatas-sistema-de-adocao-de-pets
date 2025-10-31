@@ -409,7 +409,7 @@ export function Cadastro() {
                         name="numero"
                         value={formData.numero}
                         onChange={handleChange}
-                        disabled={loadingCep || shouldDisableAddressFields}
+                        disabled={loadingCep}
                       />
                     </Form.Group>
                   </Col>
