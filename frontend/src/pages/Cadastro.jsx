@@ -17,12 +17,10 @@ import Swal from 'sweetalert2'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
-// Função para verificar a força da senha
 const checkPasswordStrength = (password) => {
   let score = 0
   if (!password) return { score: 0, label: '', color: '' }
 
-  // Adiciona pontos com base nos critérios
   if (password.length >= 8) score++
   if (password.match(/[a-z]/)) score++
   if (password.match(/[A-Z]/)) score++
@@ -43,20 +41,18 @@ const checkPasswordStrength = (password) => {
   }
 }
 
-// máscara de telefone
 const mascaraTelefone = (value) => {
   if (!value) return ''
-  value = value.replace(/\D/g, '') // Remove tudo que não é dígito
-  value = value.replace(/^(\d{2})(\d)/g, '($1) $2') // Coloca parênteses em volta dos dois primeiros dígitos
-  value = value.replace(/(\d)(\d{4})$/, '$1-$2') // Coloca hífen antes dos últimos 4 dígitos
-  return value.slice(0, 15) // Limita o tamanho máximo do campo
+  value = value.replace(/\D/g, '')
+  value = value.replace(/^(\d{2})(\d)/g, '($1) $2')
+  value = value.replace(/(\d)(\d{4})$/, '$1-$2')
+  return value.slice(0, 15)
 }
 
-// formação de CEP (apenas dígitos, limite 8)
 const formatarCEP = (value) => {
   if (!value) return ''
-  value = value.replace(/\D/g, '') // Remove tudo que não é dígito
-  return value.slice(0, 8) // Limita o tamanho máximo para 8 dígitos
+  value = value.replace(/\D/g, '')
+  return value.slice(0, 8)
 }
 
 export function Cadastro() {
@@ -87,8 +83,22 @@ export function Cadastro() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [loadingCep, setLoadingCep] = useState(false)
   const [cepError, setCepError] = useState(null)
+  const [manualEntry, setManualEntry] = useState(false)
 
   const navigate = useNavigate()
+
+  // Função para habilitar a entrada manual de endereço
+  const handleManualEntry = () => {
+    setManualEntry(true)
+    setCepError(null)
+    setFormData((prev) => ({
+      ...prev,
+      rua: '',
+      bairro: '',
+      cidade: '',
+      uf: '',
+    }))
+  }
 
   // busca de CEP (ViaCEP)
   const searchCep = async (cepValue) => {
@@ -98,6 +108,7 @@ export function Cadastro() {
 
     setLoadingCep(true)
     setCepError(null)
+    setManualEntry(false)
 
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`)
@@ -115,6 +126,8 @@ export function Cadastro() {
         return
       }
 
+      setManualEntry(false)
+
       // Atualiza o formData com os dados do ViaCEP
       setFormData((prev) => ({
         ...prev,
@@ -122,7 +135,6 @@ export function Cadastro() {
         bairro: data.bairro || '',
         cidade: data.localidade || '',
         uf: data.uf || '',
-        // Mantém 'numero' intacto
       }))
     } catch (error) {
       setCepError('Erro ao buscar o CEP. Tente novamente.')
@@ -131,7 +143,6 @@ export function Cadastro() {
     }
   }
 
-  // Efeito para validar a confirmação de senha
   useEffect(() => {
     if (formData.confirmarSenha && formData.senha !== formData.confirmarSenha) {
       setConfirmError('As senhas não coincidem.')
@@ -140,7 +151,6 @@ export function Cadastro() {
     }
   }, [formData.senha, formData.confirmarSenha])
 
-  // Handler para alteração de campos
   const handleChange = (event) => {
     const { name, value } = event.target
 
@@ -154,9 +164,10 @@ export function Cadastro() {
       newValue = formatarCEP(value)
       updatedFormData = { ...formData, [name]: newValue }
 
-      if (newValue.length === 8) {
+      // Só busca se tiver 8 dígitos E não estiver em modo manual
+      if (newValue.length === 8 && !manualEntry) {
         searchCep(newValue)
-      } else {
+      } else if (newValue.length < 8) {
         setCepError(null)
       }
     } else if (name === 'email') {
@@ -182,6 +193,13 @@ export function Cadastro() {
     }
     if (passwordStrength.score < 40) {
       setApiError('A senha é muito fraca.')
+      return
+    }
+
+    if (!manualEntry && formData.cep.length !== 8) {
+      setApiError(
+        'Por favor, digite um CEP válido com 8 dígitos ou use a opção manual.',
+      )
       return
     }
 
@@ -222,6 +240,8 @@ export function Cadastro() {
       setApiError(err.message)
     }
   }
+
+  const shouldDisableAddressFields = !manualEntry && formData.cep.length === 8
 
   return (
     <>
@@ -355,6 +375,19 @@ export function Cadastro() {
                   </Form.Control.Feedback>
                 </Form.Group>
 
+                {cepError && (
+                  <div className="d-grid mb-3">
+                    <Button
+                      variant="outline-secondary"
+                      onClick={handleManualEntry}
+                      size="sm"
+                    >
+                      Meu CEP não foi reconhecido. Preencher Endereço
+                      Manualmente.
+                    </Button>
+                  </div>
+                )}
+
                 <Row>
                   <Col md={8}>
                     <Form.Group className="mb-3">
@@ -365,7 +398,7 @@ export function Cadastro() {
                         value={formData.rua}
                         onChange={handleChange}
                         required
-                        disabled={loadingCep}
+                        disabled={loadingCep || shouldDisableAddressFields}
                       />
                     </Form.Group>
                   </Col>
@@ -377,7 +410,7 @@ export function Cadastro() {
                         name="numero"
                         value={formData.numero}
                         onChange={handleChange}
-                        disabled={loadingCep}
+                        disabled={loadingCep || shouldDisableAddressFields}
                       />
                     </Form.Group>
                   </Col>
@@ -392,7 +425,7 @@ export function Cadastro() {
                         value={formData.bairro}
                         onChange={handleChange}
                         required
-                        disabled={loadingCep}
+                        disabled={loadingCep || shouldDisableAddressFields}
                       />
                     </Form.Group>
                   </Col>
@@ -405,7 +438,7 @@ export function Cadastro() {
                         value={formData.cidade}
                         onChange={handleChange}
                         required
-                        disabled={loadingCep}
+                        disabled={loadingCep || shouldDisableAddressFields}
                       />
                     </Form.Group>
                   </Col>
@@ -419,7 +452,7 @@ export function Cadastro() {
                         onChange={handleChange}
                         maxLength="2"
                         required
-                        disabled={loadingCep}
+                        disabled={loadingCep || shouldDisableAddressFields}
                       />
                     </Form.Group>
                   </Col>
