@@ -20,7 +20,7 @@ export function PetFilters({
     async function fetchEspecies() {
       try {
         // Sua lógica existente para buscar espécies
-        const response = await fetch(`${API_URL}/pets/especies`) 
+        const response = await fetch(`${API_URL}/pets/especies`)
         if (!response.ok) {
           throw new Error('Falha ao carregar espécies')
         }
@@ -107,7 +107,7 @@ export function PetFilters({
           </Row>
           <Row className="align-items-end g-3">
             {/* Mantém 3 colunas para Tamanho, Personalidade e Status */}
-            <Col md={adminColSize}> 
+            <Col md={adminColSize}>
               <Form.Group controlId="tamanhoFiltroAdmin">
                 <Form.Label className="fw-bold">Tamanho</Form.Label>
                 <Form.Select name="tamanho">
@@ -137,8 +137,8 @@ export function PetFilters({
                 <Form.Select name="sexo">
                   <option value="">Ambos</option>
                   {/* Enviando em MAIÚSCULAS para consistência com outros filtros */}
-                  <option value="MACHO">Macho</option> 
-                  <option value="FEMEA">Fêmea</option> 
+                  <option value="MACHO">Macho</option>
+                  <option value="FEMEA">Fêmea</option>
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -156,7 +156,7 @@ export function PetFilters({
             </Col>
 
             {/* Ajuste o layout dos botões se precisar */}
-            <Col md={adminColSize} className="d-flex"> 
+            <Col md={adminColSize} className="d-flex">
               <Button
                 type="button"
                 variant="outline-secondary"
@@ -181,7 +181,7 @@ export function PetFilters({
       {!showStatusFilter && (
         <Row className="align-items-end g-3">
           {/* Nome */}
-          <Col md={userColSize}> 
+          <Col md={userColSize}>
             <Form.Group controlId="nomeFiltroUser">
               <Form.Label className="fw-bold">Nome</Form.Label>
               <Form.Control type="text" name="nome" placeholder="Ex: Bob" />
@@ -225,23 +225,23 @@ export function PetFilters({
               </Form.Select>
             </Form.Group>
           </Col>
-          
+
           {/* === ALTERAÇÃO 3: NOVO FILTRO DE SEXO PARA USUÁRIO === */}
-          <Col md={userColSize}> 
+          <Col md={userColSize}>
             <Form.Group controlId="sexoFiltroUser">
               <Form.Label className="fw-bold">Sexo</Form.Label>
               <Form.Select name="sexo">
                 <option value="">Ambos</option>
                 {/* Enviando em MAIÚSCULAS para consistência com outros filtros */}
-                <option value="MACHO">Macho</option> 
-                <option value="FEMEA">Fêmea</option> 
+                <option value="MACHO">Macho</option>
+                <option value="FEMEA">Fêmea</option>
               </Form.Select>
             </Form.Group>
           </Col>
           {/* ======================================================= */}
-          
+
           {/* Botões - Ocupa as 2 colunas restantes (12 - 5*2 = 2) */}
-          <Col md={2} className="d-flex"> 
+          <Col md={2} className="d-flex">
             <Button
               type="button"
               variant="outline-secondary"
