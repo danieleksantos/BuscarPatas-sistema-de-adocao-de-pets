@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Container, Spinner, Alert } from 'react-bootstrap'
 import { CtaBanner } from '../components/CtaBanner/CtaBanner'
-import { FAQSection } from '../components/FaqSection/FaqSection'
 import { PetFilters } from '../components/PetFilters/PetFilters'
+import { FaqSection } from '../components/FaqSection/FaqSection'
 import { PetList } from '../components/PetList/PetList'
 import { Footer } from '../components/Footer/Footer'
 import { PaginationControls } from '../components/PaginationControls/PaginationControls'
@@ -147,7 +147,7 @@ export function Home() {
 
       <AdoptionCountBanner />
 
-      <FAQSection />
+      <FaqSection />
       <Footer />
 
       {selectedPet && (
