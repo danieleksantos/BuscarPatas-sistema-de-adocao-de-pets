@@ -46,7 +46,7 @@ const faqItems = [
   },
 ]
 
-export function FAQSection() {
+export function FaqSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [loading, setLoading] = useState(false)
 

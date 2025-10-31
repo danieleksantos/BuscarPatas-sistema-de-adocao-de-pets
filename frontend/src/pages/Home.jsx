@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Container, Spinner, Alert } from 'react-bootstrap'
 import { CtaBanner } from '../components/CtaBanner/CtaBanner'
-import { FAQSection } from '../components/FaqSection/FAQSection'
+import { FAQSection } from '../components/FaqSection/FaqSection'
 import { PetFilters } from '../components/PetFilters/PetFilters'
 import { PetList } from '../components/PetList/PetList'
 import { Footer } from '../components/Footer/Footer'

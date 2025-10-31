@@ -382,8 +382,7 @@ export function Cadastro() {
                       onClick={handleManualEntry}
                       size="sm"
                     >
-                      Meu CEP não foi reconhecido. Preencher Endereço
-                      Manualmente.
+                      CEP Não Reconhecido? Preencha Manualmente.
                     </Button>
                   </div>
                 )}
