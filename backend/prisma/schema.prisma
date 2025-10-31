@@ -55,7 +55,7 @@ model Adotante {
   adotante_id Int      @id @default(autoincrement())
   nome        String
   telefone    String?
-  cep         String?  @db.VarChar(8)
+  cep         String?
   rua         String?
   numero      String?
   bairro      String?
