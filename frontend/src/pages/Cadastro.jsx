@@ -43,13 +43,20 @@ const checkPasswordStrength = (password) => {
   }
 }
 
-// Função para aplicar a máscara de telefone
+// máscara de telefone
 const mascaraTelefone = (value) => {
   if (!value) return ''
   value = value.replace(/\D/g, '') // Remove tudo que não é dígito
   value = value.replace(/^(\d{2})(\d)/g, '($1) $2') // Coloca parênteses em volta dos dois primeiros dígitos
   value = value.replace(/(\d)(\d{4})$/, '$1-$2') // Coloca hífen antes dos últimos 4 dígitos
   return value.slice(0, 15) // Limita o tamanho máximo do campo
+}
+
+// formação de CEP (apenas dígitos, limite 8)
+const formatarCEP = (value) => {
+  if (!value) return ''
+  value = value.replace(/\D/g, '') // Remove tudo que não é dígito
+  return value.slice(0, 8) // Limita o tamanho máximo para 8 dígitos
 }
 
 export function Cadastro() {
@@ -59,6 +66,7 @@ export function Cadastro() {
     senha: '',
     confirmarSenha: '',
     telefone: '',
+    cep: '',
     rua: '',
     numero: '',
     bairro: '',
@@ -77,8 +85,51 @@ export function Cadastro() {
   const [emailError, setEmailError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [loadingCep, setLoadingCep] = useState(false)
+  const [cepError, setCepError] = useState(null)
 
   const navigate = useNavigate()
+
+  // busca de CEP (ViaCEP)
+  const searchCep = async (cepValue) => {
+    const cleanCep = cepValue
+
+    if (cleanCep.length !== 8) return
+
+    setLoadingCep(true)
+    setCepError(null)
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`)
+      const data = await response.json()
+
+      if (data.erro) {
+        setCepError('CEP não encontrado ou inválido.')
+        setFormData((prev) => ({
+          ...prev,
+          rua: '',
+          bairro: '',
+          cidade: '',
+          uf: '',
+        }))
+        return
+      }
+
+      // Atualiza o formData com os dados do ViaCEP
+      setFormData((prev) => ({
+        ...prev,
+        rua: data.logradouro || '',
+        bairro: data.bairro || '',
+        cidade: data.localidade || '',
+        uf: data.uf || '',
+        // Mantém 'numero' intacto
+      }))
+    } catch (error) {
+      setCepError('Erro ao buscar o CEP. Tente novamente.')
+    } finally {
+      setLoadingCep(false)
+    }
+  }
 
   // Efeito para validar a confirmação de senha
   useEffect(() => {
@@ -89,31 +140,42 @@ export function Cadastro() {
     }
   }, [formData.senha, formData.confirmarSenha])
 
+  // Handler para alteração de campos
   const handleChange = (event) => {
     const { name, value } = event.target
 
+    let updatedFormData = { ...formData, [name]: value }
+    let newValue = value
+
     if (name === 'telefone') {
-      setFormData({ ...formData, [name]: mascaraTelefone(value) })
+      newValue = mascaraTelefone(value)
+      updatedFormData = { ...formData, [name]: newValue }
+    } else if (name === 'cep') {
+      newValue = formatarCEP(value)
+      updatedFormData = { ...formData, [name]: newValue }
+
+      if (newValue.length === 8) {
+        searchCep(newValue)
+      } else {
+        setCepError(null)
+      }
     } else if (name === 'email') {
       if (value && !value.includes('@')) {
         setEmailError('Digite um e-mail válido (ex: email@example.com)')
       } else {
         setEmailError('')
       }
-      setFormData({ ...formData, [name]: value })
     } else if (name === 'senha') {
       setPasswordStrength(checkPasswordStrength(value))
-      setFormData({ ...formData, [name]: value })
-    } else {
-      setFormData({ ...formData, [name]: value })
     }
+
+    setFormData(updatedFormData)
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     setApiError(null)
 
-    // Validação final antes de enviar
     if (formData.senha !== formData.confirmarSenha) {
       setConfirmError('As senhas não coincidem.')
       return
@@ -124,14 +186,13 @@ export function Cadastro() {
     }
 
     try {
-      // Prepara os dados para enviar para a API
       const payload = {
         ...formData,
-        telefone: formData.telefone.replace(/\D/g, ''), // Envia apenas os números do telefone
+        telefone: formData.telefone.replace(/\D/g, ''),
+        cep: formData.cep,
       }
-      delete payload.confirmarSenha // Remove o campo de confirmação
+      delete payload.confirmarSenha
 
-      // CORREÇÃO: Usando API_URL para a rota de registro
       const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -202,7 +263,7 @@ export function Cadastro() {
                   <Form.Label>Senha</Form.Label>
                   <InputGroup>
                     <Form.Control
-                      type={showPassword ? 'text' : 'password'} // Alterna o tipo do campo
+                      type={showPassword ? 'text' : 'password'}
                       name="senha"
                       value={formData.senha}
                       onChange={handleChange}
@@ -232,7 +293,7 @@ export function Cadastro() {
                   <Form.Label>Confirmar Senha</Form.Label>
                   <InputGroup>
                     <Form.Control
-                      type={showConfirmPassword ? 'text' : 'password'} // Alterna o tipo do campo
+                      type={showConfirmPassword ? 'text' : 'password'}
                       name="confirmarSenha"
                       value={formData.confirmarSenha}
                       onChange={handleChange}
@@ -270,6 +331,30 @@ export function Cadastro() {
                 <hr />
 
                 <h4 className="h5 mt-4 mb-3">Endereço</h4>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>CEP</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="cep"
+                    value={formData.cep}
+                    onChange={handleChange}
+                    placeholder="Somente 8 dígitos"
+                    maxLength="8"
+                    isInvalid={!!cepError}
+                    disabled={loadingCep}
+                    required
+                  />
+                  {loadingCep && (
+                    <Form.Text className="text-muted">
+                      Buscando endereço...
+                    </Form.Text>
+                  )}
+                  <Form.Control.Feedback type="invalid">
+                    {cepError}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
                 <Row>
                   <Col md={8}>
                     <Form.Group className="mb-3">
@@ -280,6 +365,7 @@ export function Cadastro() {
                         value={formData.rua}
                         onChange={handleChange}
                         required
+                        disabled={loadingCep}
                       />
                     </Form.Group>
                   </Col>
@@ -291,6 +377,7 @@ export function Cadastro() {
                         name="numero"
                         value={formData.numero}
                         onChange={handleChange}
+                        disabled={loadingCep}
                       />
                     </Form.Group>
                   </Col>
@@ -305,6 +392,7 @@ export function Cadastro() {
                         value={formData.bairro}
                         onChange={handleChange}
                         required
+                        disabled={loadingCep}
                       />
                     </Form.Group>
                   </Col>
@@ -317,6 +405,7 @@ export function Cadastro() {
                         value={formData.cidade}
                         onChange={handleChange}
                         required
+                        disabled={loadingCep}
                       />
                     </Form.Group>
                   </Col>
@@ -330,6 +419,7 @@ export function Cadastro() {
                         onChange={handleChange}
                         maxLength="2"
                         required
+                        disabled={loadingCep}
                       />
                     </Form.Group>
                   </Col>
@@ -339,7 +429,7 @@ export function Cadastro() {
                   <Button
                     type="submit"
                     className="btn-principal"
-                    disabled={!!confirmError || !!emailError}
+                    disabled={!!confirmError || !!emailError || loadingCep}
                   >
                     Cadastrar
                   </Button>
