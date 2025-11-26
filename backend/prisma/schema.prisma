@@ -1,5 +1,3 @@
-// schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,7 +7,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Enums para padronização de dados
+model Auth {
+  auth_id  Int       @id @default(autoincrement())
+  email    String    @unique
+  senha    String
+  role     Role      @default(USER)
+  adotante Adotante?
+}
+
+model Adotante {
+  adotante_id Int      @id @default(autoincrement())
+  nome        String
+  telefone    String?
+  rua         String?
+  numero      String?
+  bairro      String?
+  cidade      String?
+  uf          String?  @db.VarChar(2)
+  auth_id     Int      @unique
+  cep         String?  @db.VarChar(8)
+  adocoes     Adocao[]
+  auth        Auth     @relation(fields: [auth_id], references: [auth_id])
+}
+
+model Pet {
+  pet_id          Int               @id @default(autoincrement())
+  nome            String
+  especie         String
+  data_nascimento DateTime?         @db.Date
+  descricao       String?
+  status          StatusPet         @default(DISPONIVEL)
+  tamanho         TamanhoPet?
+  personalidade   PersonalidadePet?
+  imagem_url1     String?
+  imagem_url2     String?
+  sexo            Sexo              @default(FEMEA)
+  adocao          Adocao?
+}
+
+model Adocao {
+  adocao_id   Int      @id @default(autoincrement())
+  data_adocao DateTime @default(now()) @db.Date
+  pet_id      Int      @unique
+  adotante_id Int
+  adotante    Adotante @relation(fields: [adotante_id], references: [adotante_id])
+  pet         Pet      @relation(fields: [pet_id], references: [pet_id])
+}
+
 enum Role {
   USER
   ADMIN
@@ -35,62 +79,4 @@ enum PersonalidadePet {
 enum Sexo {
   MACHO
   FEMEA
-}
-
-// Modelos do Banco de Dados
-
-// NOVO MODELO PARA AUTENTICAÇÃO
-model Auth {
-  auth_id     Int       @id @default(autoincrement())
-  email       String    @unique
-  senha       String
-  role        Role      @default(USER)
-  
-  // Relação um-para-um com Adotante
-  adotante    Adotante?
-}
-
-// MODELO ADOTANTE AGORA FOCADO NO PERFIL
-model Adotante {
-  adotante_id Int      @id @default(autoincrement())
-  nome        String
-  telefone    String?
-  cep         String?  @db.VarChar(8)
-  rua         String?
-  numero      String?
-  bairro      String?
-  cidade      String?
-  uf          String?  @db.VarChar(2)
-
-  // Chave estrangeira para o modelo Auth
-  auth_id     Int      @unique
-  auth        Auth     @relation(fields: [auth_id], references: [auth_id])
-
-  adocoes     Adocao[]
-}
-
-model Pet {
-  pet_id          Int               @id @default(autoincrement())
-  nome            String
-  sexo            Sexo              @default(FEMEA)
-  especie         String
-  data_nascimento DateTime?         @db.Date
-  descricao       String?
-  status          StatusPet         @default(DISPONIVEL)
-  tamanho         TamanhoPet?
-  personalidade   PersonalidadePet?
-  imagem_url1     String?
-  imagem_url2     String?
-
-  adocao          Adocao?
-}
-
-model Adocao {
-  adocao_id   Int      @id @default(autoincrement())
-  data_adocao DateTime @default(now()) @db.Date
-  pet_id      Int      @unique
-  adotante_id Int
-
-  pet         Pet      @relation(fields: [pet_id], references: [pet_id])
-  adotante    Adotante @relation(fields: [adotante_id], references: [adotante_id])
 }
