@@ -170,13 +170,10 @@ Abaixo está o Diagrama de Entidade-Relacionamento que representa a estrutura do
 
 Temos um conjunto de melhorias planejadas para aprimorar a experiência do usuário e a funcionalidade do sistema:
 
-- **Integração de Localização:** Implementar API de CEP para autocompletar endereços no cadastro do adotante (com opção de checkbox para CEP não localizado).
-- **Atributo de Sexo do Pet:** Adicionar o atributo “Sexo” (Macho/Fêmea) ao modelo e formulários.
 - **Upload de Múltiplas Fotos:** Permitir o upload de até 2 fotos por pet para melhor visualização.
 
 **Experiência do Usuário:**
 - Personalizar a saudação após o login: “Bem-vindo(a), Fulano”.
-- Adicionar um formulário de contato/feedback: “Ainda com dúvidas?”.
 - Comunicação do processo de adoção: envio de e-mail automático após conclusão ou atualização da adoção.
 
 ---
