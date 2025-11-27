@@ -9,8 +9,8 @@ datasource db {
 
 model Auth {
   auth_id  Int       @id @default(autoincrement())
-  email    String    @unique
-  senha    String
+  email    String    @unique @db.VarChar(255)
+  senha    String    @db.VarChar(100)
   role     Role      @default(USER)
   adotante Adotante?
 }
