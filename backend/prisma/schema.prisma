@@ -17,18 +17,18 @@ model Auth {
 }
 
 model Adotante {
-  adotante_id Int      @id @default(autoincrement())
-  nome        String   @db.VarChar(100)
-  telefone    String?  
-  rua         String?
-  numero      String?
-  bairro      String?
-  cidade      String?
-  uf          String?  @db.VarChar(2)
-  auth_id     Int      @unique
-  cep         String?  @db.VarChar(8)
-  adocoes     Adocao[]
-  auth        Auth     @relation(fields: [auth_id], references: [auth_id])
+  adotante_id Int      @id @default(autoincrement())
+  nome        String   @db.VarChar(100)
+  telefone    String?  
+  rua         String?  @db.VarChar(255) 
+  numero      String?  @db.VarChar(10)  
+  bairro      String?  @db.VarChar(100) 
+  cidade      String?  @db.VarChar(100) 
+  uf          String?  @db.VarChar(2)
+  auth_id     Int      @unique
+  cep         String?  @db.VarChar(8)
+  adocoes     Adocao[]
+  auth        Auth     @relation(fields: [auth_id], references: [auth_id])
 }
 
 model Pet {

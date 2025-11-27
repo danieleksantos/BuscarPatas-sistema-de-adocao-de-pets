@@ -58,7 +58,7 @@ async function main() {
 
   const usersData = [
     { email: "mariana.c@example.com", nome: "Mariana Costa", telefone: "11988776655", cep: "01311-100", rua: "Avenida Paulista", numero: "2000", bairro: "Bela Vista", cidade: "São Paulo", uf: "SP" },
-    { email: "ricardo.a@example.com", nome: "Ricardo Almeida", telefone: "71911223344", cep: "40020-000", rua: "Rua das Laranjeiras", numero: "50", bairro: "Pelourinho", cidade: "Salvador", uf: "BA" },
+    { email: "ricardo.a@example.com", nome: "Ricardo Alves", telefone: "71911223344", cep: "40020-000", rua: "Rua das Laranjeiras", numero: "50", bairro: "Pelourinho", cidade: "Salvador", uf: "BA" },
     { email: "fer.ol@example.com", nome: "Fernanda Oliveira", telefone: "48999887766", cep: "88010-000", rua: "Avenida Beira Mar Norte", numero: "1200", bairro: "Centro", cidade: "Florianópolis", uf: "SC" },
     { email: "lucas.p@example.com", nome: "Lucas Pereira", telefone: "61981234567", cep: "70040-900", rua: "SQS 308 Bloco C", numero: "101", bairro: "Asa Sul", cidade: "Brasília", uf: "DF" },
     { email: "juliana.s@example.com", nome: "Juliana Santos", telefone: "92992345678", cep: "69010-000", rua: "Rua Tapajós", numero: "45", bairro: "Centro", cidade: "Manaus", uf: "AM" },
