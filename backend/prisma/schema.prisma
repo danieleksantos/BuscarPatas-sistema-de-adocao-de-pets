@@ -18,8 +18,8 @@ model Auth {
 
 model Adotante {
   adotante_id Int      @id @default(autoincrement())
-  nome        String
-  telefone    String?
+  nome        String   @db.VarChar(100)
+  telefone    String?  
   rua         String?
   numero      String?
   bairro      String?
