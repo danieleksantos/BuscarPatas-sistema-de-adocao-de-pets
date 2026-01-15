@@ -6,26 +6,26 @@ O objetivo principal foi modernizar o processo de adoção, substituindo control
 
 ---
 
-## ✨ Funcionalidades Principais
+##  Funcionalidades Principais
 
 O sistema é segmentado para atender às necessidades dos diferentes tipos de usuários:
 
-### 👥 Adotantes (Role: `USER`)
-* **👤 Autenticação Segura:** Cadastro e Login com email/senha + Opção Google Login.
-* **🔍 Busca e Filtragem:** Filtros por espécie, tamanho, personalidade e nome.
-* **💖 Processo de Adoção:** Solicitação direta pela plataforma.
-* **📈 Painel do Adotante:** Histórico de adoções realizadas.
+###  Adotantes (Role: `USER`)
+* ** Autenticação Segura:** Cadastro e Login com email/senha + Opção Google Login.
+* ** Busca e Filtragem:** Filtros por espécie, tamanho, personalidade e nome.
+* ** Processo de Adoção:** Solicitação direta pela plataforma.
+* ** Painel do Adotante:** Histórico de adoções realizadas.
 
-### ⚙️ Administradores (Role: `ADMIN`)
-* **🐕 Gestão de Pets (CRUD):** Controle total sobre os animais disponíveis.
-* **🤝 Gestão de Adotantes (CRUD):** Gerenciamento de dados dos usuários.
-* **📜 Gestão de Adoções (CRUD):** Registro e atualização de processos de adoção.
-* **📊 Dashboard de Gestão:** Indicadores de desempenho e contagem de registros.
-* **🔒 Segurança:** Autenticação via JWT para proteção de rotas administrativas.
+###  Administradores (Role: `ADMIN`)
+* ** Gestão de Pets (CRUD):** Controle total sobre os animais disponíveis.
+* ** Gestão de Adotantes (CRUD):** Gerenciamento de dados dos usuários.
+* ** Gestão de Adoções (CRUD):** Registro e atualização de processos de adoção.
+* ** Dashboard de Gestão:** Indicadores de desempenho e contagem de registros.
+* ** Segurança:** Autenticação via JWT para proteção de rotas administrativas.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 | Camada | Tecnologias |
 | :--- | :--- |
@@ -35,7 +35,7 @@ O sistema é segmentado para atender às necessidades dos diferentes tipos de us
 
 ---
 
-## 🚀 Como Rodar Localmente
+##  Como Rodar Localmente
 
 ### 🐳 Via Docker (Recomendado)
 Graças à implementação de **Multi-stage Builds**, o ambiente é leve e isolado.
@@ -50,7 +50,7 @@ Graças à implementação de **Multi-stage Builds**, o ambiente é leve e isola
     docker exec -it buscar-patas-api npx prisma db seed
     ```
 
-### 💻 Instalação Manual
+###  Instalação Manual
 <details>
 <summary>Clique para ver os passos manuais</summary>
 
@@ -67,9 +67,9 @@ Graças à implementação de **Multi-stage Builds**, o ambiente é leve e isola
 
 ---
 
-## 📚 Documentação da API
+##  Documentação da API
 
-> 🔒 *Rotas `ADMIN` exigem Bearer Token.*
+>  *Rotas `ADMIN` exigem Bearer Token.*
 
 | Endpoint | Método | Descrição | Proteção |
 | :--- | :--- | :--- | :--- |
@@ -93,9 +93,9 @@ Graças à implementação de **Multi-stage Builds**, o ambiente é leve e isola
 ## Screenshots
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/cfdce7bb-3924-4b43-b7d5-0f12f445504a" alt="Desktop Preview" width="500" height="1000"/>
+  <img src="https://github.com/user-attachments/assets/cfdce7bb-3924-4b43-b7d5-0f12f445504a" alt="Desktop Preview" width="600" height="1000"/>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/d8e7a035-3ca7-4b09-9d73-c8de394e7330" alt="Mobile preview" width="200" />
+  <img src="https://github.com/user-attachments/assets/d8e7a035-3ca7-4b09-9d73-c8de394e7330" alt="Mobile preview" width="200" height="1000" />
 </p>
 
 
