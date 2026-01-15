@@ -56,18 +56,30 @@ async function main() {
 
   const senhaPadrao = await bcrypt.hash('senha_123', 10);
 
+  // const usersData = [
+  //   { email: "mariana.c@example.com", nome: "Mariana Costa", telefone: "11988776655", cep: "01311-100", rua: "Avenida Paulista", numero: "2000", bairro: "Bela Vista", cidade: "São Paulo", uf: "SP" },
+  //   { email: "ricardo.a@example.com", nome: "Ricardo Alves", telefone: "71911223344", cep: "40020-000", rua: "Rua das Laranjeiras", numero: "50", bairro: "Pelourinho", cidade: "Salvador", uf: "BA" },
+  //   { email: "fer.ol@example.com", nome: "Fernanda Oliveira", telefone: "48999887766", cep: "88010-000", rua: "Avenida Beira Mar Norte", numero: "1200", bairro: "Centro", cidade: "Florianópolis", uf: "SC" },
+  //   { email: "lucas.p@example.com", nome: "Lucas Pereira", telefone: "61981234567", cep: "70040-900", rua: "SQS 308 Bloco C", numero: "101", bairro: "Asa Sul", cidade: "Brasília", uf: "DF" },
+  //   { email: "juliana.s@example.com", nome: "Juliana Santos", telefone: "92992345678", cep: "69010-000", rua: "Rua Tapajós", numero: "45", bairro: "Centro", cidade: "Manaus", uf: "AM" },
+  //   { email: "pedro.g@example.com", nome: "Pedro Gomes", telefone: "21977665544", cep: "22410-001", rua: "Rua Nascimento Silva", numero: "340", bairro: "Ipanema", cidade: "Rio de Janeiro", uf: "RJ" },
+  //   { email: "carla.r@example.com", nome: "Carla Rocha", telefone: "81966554433", cep: "51020-000", rua: "Avenida Boa Viagem", numero: "150", bairro: "Boa Viagem", cidade: "Recife", uf: "PE" },
+  //   { email: "marcos@example.com", nome: "Marcos Lima", telefone: "31955443322", cep: "30140-001", rua: "Rua Contorno", numero: "888", bairro: "Funcionários", cidade: "Belo Horizonte", uf: "MG" },
+  //   { email: "patricia.m@example.com", nome: "Patrícia Menezes", telefone: "51944332211", cep: "90570-001", rua: "Rua 24 de Outubro", numero: "90", bairro: "Moinhos de Vento", cidade: "Porto Alegre", uf: "RS" }
+  // ];
   const usersData = [
-    { email: "mariana.c@example.com", nome: "Mariana Costa", telefone: "11988776655", cep: "01311-100", rua: "Avenida Paulista", numero: "2000", bairro: "Bela Vista", cidade: "São Paulo", uf: "SP" },
-    { email: "ricardo.a@example.com", nome: "Ricardo Alves", telefone: "71911223344", cep: "40020-000", rua: "Rua das Laranjeiras", numero: "50", bairro: "Pelourinho", cidade: "Salvador", uf: "BA" },
-    { email: "fer.ol@example.com", nome: "Fernanda Oliveira", telefone: "48999887766", cep: "88010-000", rua: "Avenida Beira Mar Norte", numero: "1200", bairro: "Centro", cidade: "Florianópolis", uf: "SC" },
-    { email: "lucas.p@example.com", nome: "Lucas Pereira", telefone: "61981234567", cep: "70040-900", rua: "SQS 308 Bloco C", numero: "101", bairro: "Asa Sul", cidade: "Brasília", uf: "DF" },
-    { email: "juliana.s@example.com", nome: "Juliana Santos", telefone: "92992345678", cep: "69010-000", rua: "Rua Tapajós", numero: "45", bairro: "Centro", cidade: "Manaus", uf: "AM" },
-    { email: "pedro.g@example.com", nome: "Pedro Gomes", telefone: "21977665544", cep: "22410-001", rua: "Rua Nascimento Silva", numero: "340", bairro: "Ipanema", cidade: "Rio de Janeiro", uf: "RJ" },
-    { email: "carla.r@example.com", nome: "Carla Rocha", telefone: "81966554433", cep: "51020-000", rua: "Avenida Boa Viagem", numero: "150", bairro: "Boa Viagem", cidade: "Recife", uf: "PE" },
-    { email: "marcos@example.com", nome: "Marcos Lima", telefone: "31955443322", cep: "30140-001", rua: "Rua Contorno", numero: "888", bairro: "Funcionários", cidade: "Belo Horizonte", uf: "MG" },
-    { email: "patricia.m@example.com", nome: "Patrícia Menezes", telefone: "51944332211", cep: "90570-001", rua: "Rua 24 de Outubro", numero: "90", bairro: "Moinhos de Vento", cidade: "Porto Alegre", uf: "RS" }
+    {
+      email: "teste@ex.com",
+      nome: "Teste Simples",
+      telefone: "11111111111",
+      cep: "10000000",
+      rua: "Rua Tst Curta",
+      numero: "1",
+      bairro: "Bairro Tst",
+      cidade: "Cidade",
+      uf: "TS"
+    },
   ];
-
   let newAdotantesCount = 0;
   for (const userData of usersData) {
     const existingUser = await prisma.auth.findUnique({

@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # --- BANCO DE DADOS ---
+  db:
+    image: postgres:16-alpine
+    container_name: buscar-patas-db
+    restart: always
+    environment:
+      POSTGRES_USER: user_admin
+      POSTGRES_PASSWORD: password_123
+      POSTGRES_DB: buscar_patas_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+
+  # --- BACKEND ---
+  api:
+    build: ./backend
+    container_name: buscar-patas-api
+    restart: always
+    command: npm run start
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app 
+      - /app/node_modules 
+    depends_on:
+      - db 
+
+  # --- FRONTEND ---
+  web:
+    build: ./frontend
+    container_name: buscar-patas-web
+    restart: always
+    command: npm run dev -- --host 0.0.0.0
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app 
+      - /app/node_modules
+    depends_on:
+      - api 
+
+volumes:
+  pgdata:
