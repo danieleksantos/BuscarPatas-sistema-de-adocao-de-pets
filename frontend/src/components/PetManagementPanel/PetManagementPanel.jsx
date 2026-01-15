@@ -36,7 +36,7 @@ export function PetManagementPanel() {
     personalidade: '',
     status: '',
     page: 1,
-    limit: 8,
+    limit: 7,
   })
 
   const [showCreateModal, setShowCreateModal] = useState(false)

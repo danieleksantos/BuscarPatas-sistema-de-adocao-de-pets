@@ -1,23 +1,14 @@
-FROM node:20-alpine AS build
-
+FROM node:20-alpine AS deps
 WORKDIR /app
-
 COPY package*.json ./
 COPY prisma ./prisma/
+RUN npm install && npx prisma generate
 
-RUN npm install
-RUN npx prisma generate
-
+FROM node:20-alpine AS runner
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/package*.json ./
 COPY . .
 
-FROM node:20-alpine
-WORKDIR /app
-
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/prisma ./prisma/
-COPY --from=build /app ./
-
 EXPOSE 3000
-
 CMD ["npm", "run", "start"]
