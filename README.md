@@ -11,17 +11,17 @@ O objetivo principal foi modernizar o processo de adoção, substituindo control
 O sistema é segmentado para atender às necessidades dos diferentes tipos de usuários:
 
 ###  Adotantes (Role: `USER`)
-* ** Autenticação Segura:** Cadastro e Login com email/senha + Opção Google Login.
-* ** Busca e Filtragem:** Filtros por espécie, tamanho, personalidade e nome.
-* ** Processo de Adoção:** Solicitação direta pela plataforma.
-* ** Painel do Adotante:** Histórico de adoções realizadas.
+** Autenticação Segura:** Cadastro e Login com email/senha + Opção Google Login.
+** Busca e Filtragem:** Filtros por espécie, tamanho, personalidade e nome.
+** Processo de Adoção:** Solicitação direta pela plataforma.
+** Painel do Adotante:** Histórico de adoções realizadas.
 
 ###  Administradores (Role: `ADMIN`)
-* ** Gestão de Pets (CRUD):** Controle total sobre os animais disponíveis.
-* ** Gestão de Adotantes (CRUD):** Gerenciamento de dados dos usuários.
-* ** Gestão de Adoções (CRUD):** Registro e atualização de processos de adoção.
-* ** Dashboard de Gestão:** Indicadores de desempenho e contagem de registros.
-* ** Segurança:** Autenticação via JWT para proteção de rotas administrativas.
+** Gestão de Pets (CRUD):** Controle total sobre os animais disponíveis.
+** Gestão de Adotantes (CRUD):** Gerenciamento de dados dos usuários.
+** Gestão de Adoções (CRUD):** Registro e atualização de processos de adoção.
+** Dashboard de Gestão:** Indicadores de desempenho e contagem de registros.
+** Segurança:** Autenticação via JWT para proteção de rotas administrativas.
 
 ---
 
@@ -93,13 +93,13 @@ Graças à implementação de **Multi-stage Builds**, o ambiente é leve e isola
 ## Screenshots
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/cfdce7bb-3924-4b43-b7d5-0f12f445504a" alt="Desktop Preview" width="600" height="1000"/>
+  <img src="https://github.com/user-attachments/assets/cfdce7bb-3924-4b43-b7d5-0f12f445504a" alt="Desktop Preview" width="600" height="1200"/>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/user-attachments/assets/d8e7a035-3ca7-4b09-9d73-c8de394e7330" alt="Mobile preview" width="200" height="1000" />
+  <img src="https://github.com/user-attachments/assets/d8e7a035-3ca7-4b09-9d73-c8de394e7330" alt="Mobile preview" width="200" />
 </p>
 
 
-## 👨‍💻 Equipe Squad 2
+##  Equipe Squad 2
 * **Daniele Santos** — [@danieleksantos](https://github.com/danieleksantos)
 * **Eduardo Schuindt** — [@edudsan](https://github.com/edudsan)
 * **Patrick Santos** — [@Manopk07](https://github.com/Manopk07)
