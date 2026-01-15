@@ -1,9 +1,5 @@
 # 🐾 Buscar Patas - Sistema de Adoção de Pets
 
-<p align="center">
-  <img src="https://i.postimg.cc/XqSBh7hg/DER-Buscar-Patas.png" alt="DER Buscar Patas" width="600">
-</p>
-
 Bem-vindo ao **Buscar Patas**, uma aplicação web completa para gerenciamento de abrigos de animais. Este projeto foi desenvolvido como parte do Bootcamp **Desenvolvimento Full Stack 2025.3**.
 
 O objetivo principal foi modernizar o processo de adoção, substituindo controles manuais por um sistema eficiente que facilita o cadastro de pets e a conexão entre eles e seus futuros lares.
@@ -86,6 +82,22 @@ Graças à implementação de **Multi-stage Builds**, o ambiente é leve e isola
 
 
 ---
+
+## DER
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8c571356-3475-49c0-b7ae-55bc7d08e74b" alt="DER Buscar Patas" width="400">
+</p>
+
+---
+
+## Screenshots
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cfdce7bb-3924-4b43-b7d5-0f12f445504a" alt="Desktop Preview" width="500" height="1000"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/d8e7a035-3ca7-4b09-9d73-c8de394e7330" alt="Mobile preview" width="200" />
+</p>
+
 
 ## 👨‍💻 Equipe Squad 2
 * **Daniele Santos** — [@danieleksantos](https://github.com/danieleksantos)
