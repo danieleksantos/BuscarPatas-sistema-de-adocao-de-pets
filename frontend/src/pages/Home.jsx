@@ -155,12 +155,12 @@ export function Home() {
                     <span style={{ fontSize: '1.5rem' }}>🐾</span>
                     <div className="text-start">
                       <strong className="d-block">
-                        O servidor está a acordar...
+                        O servidor está acordando...
                       </strong>
                       <span className="small">
                         Estamos iniciando os serviços no Render. Isso pode levar
                         cerca de 50 segundos. <br />
-                        Agradecemos a sua paciência em ajudar um pet!
+                        Agradecemos a sua paciência!
                       </span>
                     </div>
                   </div>
