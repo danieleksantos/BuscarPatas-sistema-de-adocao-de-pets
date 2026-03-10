@@ -14,6 +14,7 @@ export function Home() {
   const [pets, setPets] = useState([])
   const [pagination, setPagination] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [showWakeUpMessage, setShowWakeUpMessage] = useState(false)
   const [filters, setFilters] = useState({
     page: 1,
     limit: 8,
@@ -26,8 +27,14 @@ export function Home() {
   useEffect(() => {
     async function fetchPets() {
       setLoading(true)
+      setShowWakeUpMessage(false)
+      const wakeUpTimer = setTimeout(() => {
+        setShowWakeUpMessage(true)
+      }, 2500)
+
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
       const activeFilters = { status: 'DISPONIVEL' }
+
       Object.keys(filters).forEach((key) => {
         if (filters[key]) {
           activeFilters[key] = filters[key]
@@ -51,7 +58,9 @@ export function Home() {
         setPets([])
         setPagination(null)
       } finally {
+        clearTimeout(wakeUpTimer)
         setLoading(false)
+        setShowWakeUpMessage(false)
       }
     }
     fetchPets()
@@ -63,26 +72,32 @@ export function Home() {
       return { ...baseFilters, ...newFilters }
     })
   }
+
   const handlePageChange = (newPage) => {
     setFilters((prevFilters) => ({ ...prevFilters, page: newPage }))
     buscaSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
+
   const handleLimitChange = (newLimit) => {
     setFilters((prevFilters) => ({ ...prevFilters, limit: newLimit, page: 1 }))
     buscaSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
+
   const handleShowModal = (pet) => {
     setSelectedPet(pet)
     setShowModal(true)
   }
+
   const handleCloseModal = () => {
     setShowModal(false)
     setSelectedPet(null)
   }
+
   const handleAdocaoConcluida = () => {
     handleCloseModal()
     setFilters((currentFilters) => ({ ...currentFilters }))
   }
+
   const homeBackgroundImageUrl = '/patinhas.png'
 
   return (
@@ -106,8 +121,7 @@ export function Home() {
         ref={buscaSectionRef}
       >
         <h2 className="text-center mb-4 display-5 fw-light">
-          {' '}
-          Encontre seu novo amigo{' '}
+          Encontre seu novo amigo
         </h2>
 
         <div className="mb-3">
@@ -121,15 +135,47 @@ export function Home() {
         <PetFilters onFilterChange={handleFilterChange} className="mb-3" />
 
         {loading && (
-          <div className="text-center mt-4">
-            <Spinner animation="border" />
+          <div className="text-center mt-5 py-5">
+            <Spinner
+              animation="border"
+              variant="primary"
+              role="status"
+              className="mb-3"
+            >
+              <span className="visually-hidden">Carregando...</span>
+            </Spinner>
+
+            {showWakeUpMessage && (
+              <div style={{ animation: 'fadeIn 0.5s ease-in' }}>
+                <Alert
+                  variant="warning"
+                  className="d-inline-block shadow-sm border-0 bg-warning bg-opacity-10 text-dark"
+                >
+                  <div className="d-flex align-items-center gap-3 p-2">
+                    <span style={{ fontSize: '1.5rem' }}>🐾</span>
+                    <div className="text-start">
+                      <strong className="d-block">
+                        O servidor está a acordar...
+                      </strong>
+                      <span className="small">
+                        Estamos iniciando os serviços no Render. Isso pode levar
+                        cerca de 50 segundos. <br />
+                        Agradecemos a sua paciência em ajudar um pet!
+                      </span>
+                    </div>
+                  </div>
+                </Alert>
+              </div>
+            )}
           </div>
         )}
+
         {!loading && pets.length === 0 && (
           <Alert variant="info" className="mt-4">
             Nenhum pet encontrado com esses filtros.
           </Alert>
         )}
+
         {!loading && pets.length > 0 && (
           <div className="mt-0">
             <PetList pets={pets} onPetClick={handleShowModal} />
@@ -146,7 +192,6 @@ export function Home() {
       </Container>
 
       <AdoptionCountBanner />
-
       <FaqSection />
       <Footer />
 
@@ -158,6 +203,7 @@ export function Home() {
           onAdocaoConcluida={handleAdocaoConcluida}
         />
       )}
+
       <AnimatedBackground
         imageUrl={homeBackgroundImageUrl}
         opacity={0.4}
@@ -165,6 +211,13 @@ export function Home() {
         isCornerImage={true}
         backgroundSize="200px"
       />
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </main>
   )
 }
